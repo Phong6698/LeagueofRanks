@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SummonerActivity extends AppCompatActivity {
 
@@ -85,6 +86,11 @@ public class SummonerActivity extends AppCompatActivity {
             return true;
         }
 
+        if(item.getItemId() == R.id.action_search_summoner) {
+            Toast toast = Toast.makeText(getApplicationContext(), "Search...", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -127,7 +133,7 @@ public class SummonerActivity extends AppCompatActivity {
                 case 0:
                     return "Normal";
                 case 1:
-                    return "Solo Duo";
+                    return "Solo/Duo";
                 case 2:
                     return "Flex";
             }

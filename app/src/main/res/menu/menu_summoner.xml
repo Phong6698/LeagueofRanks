@@ -2,10 +2,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="lor.ch.leagueofranks.SummonerActivity">
-    <item android:id="@+id/action_favoriting_summoner"
-        android:icon="@mipmap/ic_launcher"
-        android:title="Favorit Summoner"
-        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_search_summoner"
+        android:icon="@drawable/ic_search_black_24px"
+        android:title="Search Summoner"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_settings"
