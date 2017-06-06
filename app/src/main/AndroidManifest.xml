@@ -28,6 +28,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="lor.ch.leagueofranks.SummonerActivity" />
         </activity>
+        <activity
+            android:name=".SummonerProfile"
+            android:label="@string/title_activity_summoner_profile"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
