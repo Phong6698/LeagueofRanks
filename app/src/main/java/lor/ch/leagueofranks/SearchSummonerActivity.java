@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 public class SearchSummonerActivity extends AppCompatActivity {
 
@@ -15,8 +17,18 @@ public class SearchSummonerActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Button searchbutton = (Button) findViewById(R.id.searchSummoner);
+        searchbutton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                setContentView(R.layout.activity_summoner_profile);
+            }
+        });
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
 
 
     @Override

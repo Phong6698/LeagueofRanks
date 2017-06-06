@@ -8,100 +8,115 @@
     tools:context="lor.ch.leagueofranks.SummonerProfile"
     tools:showIn="@layout/activity_summoner_profile">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="105dp"
-        android:layout_height="102dp"
-        app:srcCompat="?android:attr/alertDialogIcon"
-        tools:layout_editor_absoluteX="48dp"
-        tools:layout_editor_absoluteY="359dp" />
+    <RelativeLayout
+        android:layout_width="371dp"
+        android:layout_height="497dp"
+        tools:layout_editor_absoluteX="7dp"
+        tools:layout_editor_absoluteY="7dp">
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="105dp"
-        android:layout_height="102dp"
-        app:srcCompat="?android:attr/alertDialogIcon"
-        tools:layout_editor_absoluteX="48dp"
-        tools:layout_editor_absoluteY="204dp" />
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="105dp"
+            android:layout_height="102dp"
+            app:srcCompat="?android:attr/alertDialogIcon"
+            tools:layout_editor_absoluteX="48dp"
+            tools:layout_editor_absoluteY="43dp"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="28dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="105dp"
-        android:layout_height="102dp"
-        app:srcCompat="?android:attr/alertDialogIcon"
-        tools:layout_editor_absoluteX="48dp"
-        tools:layout_editor_absoluteY="43dp" />
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="105dp"
+            android:layout_height="102dp"
+            app:srcCompat="?android:attr/alertDialogIcon"
+            tools:layout_editor_absoluteX="48dp"
+            tools:layout_editor_absoluteY="204dp"
+            android:layout_below="@+id/imageView2"
+            android:layout_alignStart="@+id/imageView2"
+            android:layout_marginTop="66dp" />
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="171dp"
-        android:layout_height="53dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Normalwin's: 1265"
-        tools:layout_editor_absoluteY="89dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.772" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="105dp"
+            android:layout_height="102dp"
+            app:srcCompat="?android:attr/alertDialogIcon"
+            tools:layout_editor_absoluteX="48dp"
+            tools:layout_editor_absoluteY="359dp"
+            android:layout_below="@+id/imageView3"
+            android:layout_alignStart="@+id/imageView3"
+            android:layout_marginTop="53dp" />
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="121dp"
-        android:layout_height="46dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Winrate: 82"
-        app:layout_constraintHorizontal_bias="0.627"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteY="405dp" />
+        <TextView
+            android:id="@+id/editText10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Normalwins: 1264"
+            android:textSize="24sp"
+            android:layout_below="@+id/editText11"
+            android:layout_toEndOf="@+id/imageView2"
+            android:layout_marginStart="11dp" />
 
-    <EditText
-        android:id="@+id/editText6"
-        android:layout_width="121dp"
-        android:layout_height="46dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Wins: 15"
-        app:layout_constraintHorizontal_bias="0.627"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteY="359dp" />
+        <TextView
+            android:id="@+id/editText11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Level: 30"
+            android:layout_alignTop="@+id/imageView2"
+            android:layout_alignStart="@+id/editText10"
+            android:textSize="24sp"/>
 
-    <EditText
-        android:id="@+id/editText5"
-        android:layout_width="121dp"
-        android:layout_height="46dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Winrate: 51.58"
-        app:layout_constraintHorizontal_bias="0.627"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteY="250dp" />
+        <TextView
+            android:id="@+id/editText12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Winrate: 51.26"
+            android:layout_below="@+id/editText13"
+            android:layout_alignStart="@+id/editText13"
+            android:textSize="24sp" />
 
-    <EditText
-        android:id="@+id/editText4"
-        android:layout_width="121dp"
-        android:layout_height="46dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Wins: 250"
-        app:layout_constraintHorizontal_bias="0.627"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteY="204dp" />
+        <TextView
+            android:id="@+id/editText13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/editText10"
+            android:layout_alignTop="@+id/imageView3"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Wins: 254"
+            android:textSize="24sp" />
 
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="121dp"
-        android:layout_height="46dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Level: 30"
-        app:layout_constraintHorizontal_bias="0.627"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteY="43dp" />
+        <TextView
+            android:id="@+id/editText14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Winrate: 48.25"
+            android:layout_below="@+id/editText15"
+            android:layout_alignParentEnd="true"
+            android:layout_alignStart="@+id/editText15"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/editText15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/editText12"
+            android:layout_alignTop="@+id/imageView"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Wins: 55"
+            android:textSize="24sp" />
+
+
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
