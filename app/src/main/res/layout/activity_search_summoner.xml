@@ -25,7 +25,7 @@
         android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/summonerName"
+            android:id="@+id/searchSummonerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -37,21 +37,22 @@
             />
 
         <Button
-            android:id="@+id/searchSummoner"
+            android:id="@+id/searchSummonerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/summonerName"
-            android:layout_below="@+id/summonerName"
+            android:layout_alignEnd="@+id/searchSummonerName"
+            android:layout_below="@+id/searchSummonerName"
             android:layout_marginTop="24dp"
             android:text="Search" />
 
         <Spinner
-            android:id="@+id/spinner2"
+            android:id="@+id/searchSummonerSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/summonerName"
-            android:layout_alignTop="@+id/searchSummoner"
-            android:layout_marginTop="11dp" />
+            android:layout_alignStart="@+id/searchSummonerName"
+            android:layout_alignTop="@+id/searchSummonerButton"
+            android:layout_marginTop="11dp"
+            />
     </RelativeLayout>
 
 

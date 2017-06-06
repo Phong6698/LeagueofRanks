@@ -22,16 +22,16 @@
         <activity
             android:name=".SearchSummonerActivity"
             android:label="@string/title_activity_search_summoner"
-            android:parentActivityName=".SummonersActivity"
+            android:parentActivityName="lor.ch.leagueofranks.SummonersActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="lor.ch.leagueofranks.SummonersActivity" />
         </activity>
         <activity
-            android:name=".SummonerProfile"
+            android:name=".SummonerProfileActivity"
             android:label="@string/title_activity_summoner_profile"
-            android:parentActivityName=".SummonersActivity"
+            android:parentActivityName="lor.ch.leagueofranks.SearchSummonerActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

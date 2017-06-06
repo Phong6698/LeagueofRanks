@@ -2,52 +2,19 @@ package lor.ch.leagueofranks.model;
 
 public class SummonerRanked {
 
-    private String name;
-    private int leaguePoints;
-    private String tier;
-    private String division;
+    private String queueType;
     private int wins;
     private int losses;
-    private String queue;
+    private String tier;
+    private String rank;
+    private int leaguePoints;
 
-    public String getQueue() {
-        return queue;
+    public String getQueueType() {
+        return queueType;
     }
 
-    public void setQueue(String queue) {
-        this.queue = queue;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getLeaguePoints() {
-        return leaguePoints;
-    }
-
-    public void setLeaguePoints(int leaguePoints) {
-        this.leaguePoints = leaguePoints;
-    }
-
-    public String getTier() {
-        return tier;
-    }
-
-    public void setTier(String tier) {
-        this.tier = tier;
-    }
-
-    public String getDivision() {
-        return division;
-    }
-
-    public void setDivision(String division) {
-        this.division = division;
+    public void setQueueType(String queueType) {
+        this.queueType = queueType;
     }
 
     public int getWins() {
@@ -64,6 +31,30 @@ public class SummonerRanked {
 
     public void setLosses(int losses) {
         this.losses = losses;
+    }
+
+    public String getTier() {
+        return tier;
+    }
+
+    public void setTier(String tier) {
+        this.tier = tier;
+    }
+
+    public String getRank() {
+        return rank;
+    }
+
+    public void setRank(String rank) {
+        this.rank = rank;
+    }
+
+    public int getLeaguePoints() {
+        return leaguePoints;
+    }
+
+    public void setLeaguePoints(int leaguePoints) {
+        this.leaguePoints = leaguePoints;
     }
 }
 
