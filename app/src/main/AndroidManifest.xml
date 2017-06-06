@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SummonerActivity"
+            android:name=".SummonersActivity"
             android:label="@string/title_activity_summoner"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -22,11 +22,11 @@
         <activity
             android:name=".SearchSummonerActivity"
             android:label="@string/title_activity_search_summoner"
-            android:parentActivityName=".SummonerActivity"
+            android:parentActivityName=".SummonersActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="lor.ch.leagueofranks.SummonerActivity" />
+                android:value="lor.ch.leagueofranks.SummonersActivity" />
         </activity>
         <activity
             android:name=".SummonerProfile"

@@ -20,7 +20,39 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <EditText
+            android:id="@+id/summonerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="125dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="Summoner"
+            />
+
+        <Button
+            android:id="@+id/searchSummoner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/summonerName"
+            android:layout_below="@+id/summonerName"
+            android:layout_marginTop="24dp"
+            android:text="Search" />
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/summonerName"
+            android:layout_alignTop="@+id/searchSummoner"
+            android:layout_marginTop="11dp" />
+    </RelativeLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>
