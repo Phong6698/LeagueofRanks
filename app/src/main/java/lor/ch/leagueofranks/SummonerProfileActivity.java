@@ -7,14 +7,19 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
-import lor.ch.leagueofranks.model.Summoner;
-import lor.ch.leagueofranks.json.SummonerStatsLoader;
+import net.rithms.riot.dto.League.League;
+import net.rithms.riot.dto.League.LeagueEntry;
+import net.rithms.riot.dto.Stats.PlayerStatsSummary;
+
+import lor.ch.leagueofranks.model.LorSummoner;
+import lor.ch.leagueofranks.task.LoadingSummonerTask;
 
 public class SummonerProfileActivity extends AppCompatActivity {
 
-    private Summoner summoner;
+    private static final String LOG_TAG = SummonerProfileActivity.class.getCanonicalName();
 
     private ProgressDialog mDialog;
 
@@ -28,18 +33,8 @@ public class SummonerProfileActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        summoner = new Summoner();
-        summoner.setName(intent.getStringExtra("summonerName"));
-        summoner.setSummonerId(intent.getIntExtra("summonerId", 0));
-        summoner.setAccountId(intent.getIntExtra("accountId", 0));
-        summoner.setSummonerLevel(intent.getIntExtra("summonerLevel", 0));
-        summoner.setProfileIconId(intent.getIntExtra("profileIconId",0));
-        summoner.setRegion(intent.getStringExtra("region"));
-
-        mDialog = ProgressDialog.show(this, "Please wait", "Loading Summoner...");
-
-        SummonerStatsLoader summonerStatsLoader = new SummonerStatsLoader(this, mDialog, summoner);
-        summonerStatsLoader.execute(summoner.getRegion(), ""+summoner.getSummonerId());
+        LoadingSummonerTask loadingSummonerTask = new LoadingSummonerTask(this);
+        loadingSummonerTask.execute(intent.getStringExtra("summonerName"));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -53,8 +48,22 @@ public class SummonerProfileActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    public void onData(Summoner summoner){
-        setTitle(summoner.getName());
-    }
+    public void onData(LorSummoner lorSummoner){
+        for(PlayerStatsSummary playerStatsSummary : lorSummoner.getPlayerStatsSummaryList().getPlayerStatSummaries()){
+            Log.e(LOG_TAG, playerStatsSummary.getPlayerStatSummaryType() + " : " + playerStatsSummary.getWins());
+        }
+        for(League league : lorSummoner.getLeagues()){
+            Log.e(LOG_TAG, league.getQueue() +": ");
+            for(LeagueEntry leagueEntry : league.getEntries()){
+                if(leagueEntry.getPlayerOrTeamName().equals(lorSummoner.getSummoner().getName())){
+                    Log.e(LOG_TAG, leagueEntry.getPlayerOrTeamName() + ": " + league.getTier()+ leagueEntry.getDivision() + " "+ leagueEntry.getLeaguePoints());
+                }
 
+            }
+        }
+
+        setTitle(lorSummoner.getSummoner().getName());
+
+
+    }
 }
