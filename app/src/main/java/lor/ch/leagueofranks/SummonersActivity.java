@@ -10,12 +10,22 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import android.widget.ListView;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
+import lor.ch.leagueofranks.model.LorSummoner;
+import lor.ch.leagueofranks.task.LoadingSummonerListTask;
+
 public class SummonersActivity extends AppCompatActivity {
+
+    private static final String LOG_TAG = SummonersActivity.class.getCanonicalName();
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -49,6 +59,10 @@ public class SummonersActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+        LoadingSummonerListTask loadingSummonerListTask = new LoadingSummonerListTask(this);
+        ArrayList<Long> summonerIds = new ArrayList<Long>();
+        summonerIds.add(new Long(67540676));
+        loadingSummonerListTask.execute(summonerIds);
 
     }
 
@@ -73,13 +87,15 @@ public class SummonersActivity extends AppCompatActivity {
         }
 
         if(item.getItemId() == R.id.action_search_summoner) {
-            Toast toast = Toast.makeText(getApplicationContext(), "Search...", Toast.LENGTH_SHORT);
-            toast.show();
             Intent intent = new Intent(this, SearchSummonerActivity.class);
             this.startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onData(ArrayList<LorSummoner> lorSummoners){
+        Log.e(LOG_TAG, lorSummoners.get(0).getSummoner().getName());
     }
 
     /**
