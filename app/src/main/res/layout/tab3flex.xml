@@ -9,6 +9,7 @@
     tools:context="lor.ch.leagueofranks.SummonersActivity">
 
     <ListView
+        android:id="@+id/flexListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"

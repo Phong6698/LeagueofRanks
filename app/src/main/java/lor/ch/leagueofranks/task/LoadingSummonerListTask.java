@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import net.rithms.riot.api.RiotApi;
 import net.rithms.riot.api.RiotApiException;
@@ -11,6 +12,7 @@ import net.rithms.riot.constant.Region;
 
 import java.util.ArrayList;
 
+import lor.ch.leagueofranks.SummonerProfileActivity;
 import lor.ch.leagueofranks.SummonersActivity;
 import lor.ch.leagueofranks.model.LorSummoner;
 
@@ -20,6 +22,7 @@ import lor.ch.leagueofranks.model.LorSummoner;
 
 public class LoadingSummonerListTask extends AsyncTask<ArrayList<Long>, Void, ArrayList<LorSummoner>> {
 
+    private static final String LOG_TAG = LoadingSummonerListTask.class.getCanonicalName();
 
     private ConnectivityManager connectivityManager;
     protected SummonersActivity summonersActivity;
@@ -41,7 +44,9 @@ public class LoadingSummonerListTask extends AsyncTask<ArrayList<Long>, Void, Ar
 
 
 
+
                 for(Long summonerId : params[0]){
+                    Log.e(LOG_TAG, ""+summonerId);
                     LorSummoner lorSummoner = new LorSummoner();
                     lorSummoner.setSummoner(api.getSummonerById(summonerId));
                     lorSummoner.setPlayerStatsSummaryList(api.getPlayerStatsSummary(summonerId));
@@ -56,6 +61,7 @@ public class LoadingSummonerListTask extends AsyncTask<ArrayList<Long>, Void, Ar
                 e.getStackTrace();
             }
         }
+
         return lorSummoners;
     }
 
@@ -63,7 +69,8 @@ public class LoadingSummonerListTask extends AsyncTask<ArrayList<Long>, Void, Ar
 
     @Override
     protected void onPostExecute(ArrayList<LorSummoner> lorSummoners) {
-        summonersActivity.onData(lorSummoners);
+
+
     }
 
     private boolean isNetworkConnectionAvailable() {

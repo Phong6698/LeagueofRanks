@@ -1,5 +1,6 @@
 package lor.ch.leagueofranks;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.TabLayout;
@@ -11,25 +12,26 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import android.view.View;
 import android.widget.ListView;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Map;
 
 import lor.ch.leagueofranks.model.LorSummoner;
-import lor.ch.leagueofranks.task.LoadingSummonerListTask;
+import lor.ch.leagueofranks.task.LoadingSummonerTask;
 
 public class SummonersActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = SummonersActivity.class.getCanonicalName();
+    private ProgressDialog mDialog;
+
+    private ArrayList<LorSummoner> lorSummoners;
+    private int countFavSummoner = 0;
+
+
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -39,7 +41,7 @@ public class SummonersActivity extends AppCompatActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -53,28 +55,54 @@ public class SummonersActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
+        lorSummoners = new ArrayList<>();
+        loadingLists();
+
+
+
+
+    }
+
+    private void setupTabbedActivity(){
         mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
+
+        Tab1Normal tab1Normal = new Tab1Normal();
+        Tab2SoloDuo tab2SoloDuo = new Tab2SoloDuo();
+        Tab3Flex tab3Flex = new Tab3Flex();
+
+        tab1Normal.setLorSummoner(this, lorSummoners);
+        tab2SoloDuo.setLorSummoner(this, lorSummoners);
+        tab3Flex.setLorSummoner(this, lorSummoners);
+
+        adapter.addFragment(tab1Normal, "Normal");
+        adapter.addFragment(tab2SoloDuo, "Solo/Duo");
+        adapter.addFragment(tab3Flex, "Flex");
+        mViewPager.setAdapter(adapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-        LoadingSummonerListTask loadingSummonerListTask = new LoadingSummonerListTask(this);
 
-        ArrayList<Long> summonerIds = new ArrayList<Long>();
+    }
+
+    private void setupViewPager(ViewPager viewPager){
+
+    }
+
+    private void loadingLists(){
+        mDialog = ProgressDialog.show(this, "Please wait", "Loading Summoners...");
         SharedPreferences favoritSummoners = getSharedPreferences("FavoritSummoners", 0);
         Map<String, ?> allEntries = favoritSummoners.getAll();
+        countFavSummoner = allEntries.size();
         for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
-            summonerIds.add(new Long(""+entry.getValue()));
-            Log.e(LOG_TAG, ""+entry.getValue());
+            LoadingSummonerTask loadingSummonerTask = new LoadingSummonerTask(this, countFavSummoner);
+            loadingSummonerTask.execute(""+entry.getValue());
         }
 
-        summonerIds.add(new Long(67540676));
-        loadingSummonerListTask.execute(summonerIds);
+        //LoadingSummonerListTask loadingSummonerListTask = new LoadingSummonerListTask(this);
+        //loadingSummonerListTask.execute(summonerIds);
+
 
     }
 
@@ -106,54 +134,12 @@ public class SummonersActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onData(ArrayList<LorSummoner> lorSummoners){
-        Log.e(LOG_TAG, lorSummoners.get(0).getSummoner().getName());
-    }
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            switch (position){
-                case 0:
-                    Tab1Normal tab1 = new Tab1Normal();
-                    return tab1;
-                case 1:
-                    Tab2SoloDuo tab2 = new Tab2SoloDuo();
-                    return tab2;
-                case 2:
-                    Tab3Flex tab3 = new Tab3Flex();
-                    return tab3;
-                default:
-                    return null;
-            }
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 3;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "Normal";
-                case 1:
-                    return "Solo/Duo";
-                case 2:
-                    return "Flex";
-            }
-            return null;
+    public void onData(LorSummoner lorSummoner) {
+        this.lorSummoners.add(lorSummoner);
+        if (this.lorSummoners.size() == countFavSummoner) {
+            setupTabbedActivity();
+            mDialog.dismiss();
         }
     }
+
 }

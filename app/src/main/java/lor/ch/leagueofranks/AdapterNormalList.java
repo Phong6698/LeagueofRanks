@@ -45,7 +45,7 @@ public class AdapterNormalList extends ArrayAdapter<LorSummoner> {
                 break;
             }
         }
-        summonerWins.setText(wins);
+        summonerWins.setText(""+wins);
 
         //TODO summoner icon
 

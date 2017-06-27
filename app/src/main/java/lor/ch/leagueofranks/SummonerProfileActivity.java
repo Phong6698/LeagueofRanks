@@ -41,7 +41,7 @@ public class SummonerProfileActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        LoadingSummonerTask loadingSummonerTask = new LoadingSummonerTask(new SearchSummonerActivity(),this);
+        LoadingSummonerTask loadingSummonerTask = new LoadingSummonerTask(this);
         loadingSummonerTask.execute(intent.getStringExtra("summonerName"));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

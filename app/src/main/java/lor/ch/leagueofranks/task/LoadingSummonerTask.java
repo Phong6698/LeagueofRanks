@@ -19,6 +19,7 @@ import net.rithms.riot.dto.Summoner.Summoner;
 
 import lor.ch.leagueofranks.SearchSummonerActivity;
 import lor.ch.leagueofranks.SummonerProfileActivity;
+import lor.ch.leagueofranks.SummonersActivity;
 import lor.ch.leagueofranks.model.LorSummoner;
 
 public class LoadingSummonerTask extends AsyncTask<String, Void, LorSummoner> {
@@ -27,33 +28,57 @@ public class LoadingSummonerTask extends AsyncTask<String, Void, LorSummoner> {
 
     private ConnectivityManager connectivityManager;
     protected SummonerProfileActivity summonerProfileActivity;
-    protected SearchSummonerActivity searchSummonerActivity;
+    protected SummonersActivity summonersActivity;
+    protected int countFavSum;
 
 
-    public LoadingSummonerTask(SearchSummonerActivity searchSummonerActivity, SummonerProfileActivity summonerProfileActivity) {
+    public LoadingSummonerTask(SummonerProfileActivity summonerProfileActivity) {
         this.summonerProfileActivity = summonerProfileActivity;
-        this.searchSummonerActivity = searchSummonerActivity;
+    }
+
+    public LoadingSummonerTask(SummonersActivity summonersActivity, int countFavSum) {
+        this.summonersActivity = summonersActivity;
+        this.countFavSum = countFavSum;
     }
 
     @Override
     protected LorSummoner doInBackground(String... params) {
 
+        int timePause = 1;
+        if(countFavSum > 2){
+            timePause = 3;
+        }
         LorSummoner lorSummoner = new LorSummoner();
         RiotApi api = new RiotApi("58453580-a12b-497a-bdde-d1255bd0fda3");
         api.setRegion(Region.EUW);
 
         if(isNetworkConnectionAvailable()) {
             try {
-                Summoner summoner = api.getSummonerByName(params[0]);
-                lorSummoner.setSummoner(summoner);
+                if(summonerProfileActivity!=null){
+                    Summoner summoner = api.getSummonerByName(params[0]);
+                    lorSummoner.setSummoner(summoner);
+                }else if(summonersActivity!=null){
+                    Summoner summoner = api.getSummonerById(params[0]);
+                    lorSummoner.setSummoner(summoner);
+                }
+
             }catch(RiotApiException e){
                 return null;
             }
 
             try {
-                lorSummoner.setSummoner(api.getSummonerByName(params[0]));
                 long id = lorSummoner.getSummoner().getId();
+                try {
+                    Thread.sleep(timePause * 1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 lorSummoner.setPlayerStatsSummaryList(api.getPlayerStatsSummary(id));
+                try {
+                    Thread.sleep(timePause * 1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 lorSummoner.setLeagues(api.getLeagueBySummoner(id));
 
 
@@ -73,20 +98,38 @@ public class LoadingSummonerTask extends AsyncTask<String, Void, LorSummoner> {
     protected void onPostExecute(LorSummoner lorSummoner) {
         if (lorSummoner == null) {
             Log.e(LOG_TAG, "Summoner not Found");
-            Intent intent = new Intent(summonerProfileActivity, SearchSummonerActivity.class);
-            Toast toast = Toast.makeText(summonerProfileActivity, "Summoner not Found", Toast.LENGTH_SHORT);
-            toast.show();
-            summonerProfileActivity.startActivity(intent);
+            if(summonerProfileActivity != null){
+                Intent intent = new Intent(summonerProfileActivity, SearchSummonerActivity.class);
+                Toast toast = Toast.makeText(summonerProfileActivity, "Summoner not Found", Toast.LENGTH_SHORT);
+                toast.show();
+                summonerProfileActivity.startActivity(intent);
+            }else if(summonersActivity != null){
+                Toast toast = Toast.makeText(summonersActivity, "Summoner not Found", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
+
 
         }else{
-            summonerProfileActivity.onData(lorSummoner);
+            if(summonerProfileActivity != null){
+                summonerProfileActivity.onData(lorSummoner);
+            }else if(summonersActivity != null){
+                summonersActivity.onData(lorSummoner);
+            }
+
         }
 
 
     }
 
     private boolean isNetworkConnectionAvailable() {
-        ConnectivityManager connectivityService = (ConnectivityManager) summonerProfileActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityService = null;
+        if(summonerProfileActivity != null){
+            connectivityService = (ConnectivityManager) summonerProfileActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        }else if(summonersActivity != null){
+            connectivityService = (ConnectivityManager) summonersActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        }
+
         NetworkInfo networkInfo = connectivityService.getActiveNetworkInfo();
 
         return null != networkInfo && networkInfo.isConnected();
