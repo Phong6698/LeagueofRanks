@@ -2,18 +2,24 @@ package lor.ch.leagueofranks;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import net.rithms.riot.dto.League.League;
 import net.rithms.riot.dto.League.LeagueEntry;
 import net.rithms.riot.dto.Stats.PlayerStatsSummary;
+
+import java.util.Map;
 
 import lor.ch.leagueofranks.model.LorSummoner;
 import lor.ch.leagueofranks.task.LoadingSummonerTask;
@@ -21,8 +27,9 @@ import lor.ch.leagueofranks.task.LoadingSummonerTask;
 public class SummonerProfileActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = SummonerProfileActivity.class.getCanonicalName();
-
+    private LorSummoner lorSummoner;
     private ProgressDialog mDialog;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +41,7 @@ public class SummonerProfileActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        LoadingSummonerTask loadingSummonerTask = new LoadingSummonerTask(this);
+        LoadingSummonerTask loadingSummonerTask = new LoadingSummonerTask(new SearchSummonerActivity(),this);
         loadingSummonerTask.execute(intent.getStringExtra("summonerName"));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -49,7 +56,17 @@ public class SummonerProfileActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu = menu;
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_favorite, menu);
+        return true;
+    }
+
     public void onData(LorSummoner lorSummoner){
+        Log.e(LOG_TAG, "hello");
+        this.lorSummoner = lorSummoner;
         int normalwin = 0;
         for(PlayerStatsSummary playerStatsSummary : lorSummoner.getPlayerStatsSummaryList().getPlayerStatSummaries()){
             Log.e(LOG_TAG, playerStatsSummary.getPlayerStatSummaryType() + " : " + playerStatsSummary.getWins());
@@ -124,6 +141,75 @@ public class SummonerProfileActivity extends AppCompatActivity {
 
 
 
+        MenuItem favoriting = (MenuItem)menu.findItem(R.id.action_favorit_summoner);
+        boolean favorit = checkFavorit();
 
+        if (favorit){
+            favoriting.setIcon(R.drawable.ic_favorite_white_48px);
+        }else if(!favorit){
+            favoriting.setIcon(R.drawable.ic_favorite_border_white_48px);
+        }
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        boolean favorit = checkFavorit();
+        if(item.getItemId() == R.id.action_favorit_summoner){
+            if(!favorit){
+                addFavorit();
+                item.setIcon(R.drawable.ic_favorite_white_48px);
+                Toast toast = Toast.makeText(getApplicationContext(), "Add to Favorites", Toast.LENGTH_SHORT);
+                toast.show();
+            } else if(favorit){
+                removeFavorit();
+                item.setIcon(R.drawable.ic_favorite_border_white_48px);
+                Toast toast = Toast.makeText(getApplicationContext(), "Removed from Favorites", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        } else if (item.getItemId() == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public boolean checkFavorit(){
+        boolean checkFavorit = false;
+        SharedPreferences favoritSummoners = getSharedPreferences("FavoritSummoners", 0);
+        Map<String, ?> allEntries = favoritSummoners.getAll();
+        for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+            if(!checkFavorit && ((Integer) entry.getValue()) == lorSummoner.getSummoner().getId()) {
+                checkFavorit = true;
+            }else if(!checkFavorit && ((Integer) entry.getValue()) != lorSummoner.getSummoner().getId()){
+                checkFavorit = false;
+            }
+        }
+        return checkFavorit;
+    }
+
+    public void addFavorit(){
+        SharedPreferences favoritSummoners = getSharedPreferences("FavoritSummoners", 0);
+        SharedPreferences.Editor editor = favoritSummoners.edit();
+        int i = 1;
+        while (favoritSummoners.contains("FavoritSummoner" + i)){
+            i++;
+        }
+        editor.putInt("FavoritSummoner" + i, (int)this.lorSummoner.getSummoner().getId());
+        editor.commit();
+    }
+
+    public void removeFavorit(){
+        SharedPreferences favoritSummoners = getSharedPreferences("FavoritSummoners", 0);
+        SharedPreferences.Editor editor = favoritSummoners.edit();
+        Map<String, ?> allEntries = favoritSummoners.getAll();
+        for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+            if ((Integer)entry.getValue() == lorSummoner.getSummoner().getId()){
+                editor.remove(entry.getKey());
+                editor.commit();
+            }
+        }
     }
 }

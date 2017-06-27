@@ -37,6 +37,7 @@ public class SearchSummonerListener  implements View.OnClickListener {
 
             Intent intent = new Intent(searchSummonerActivity, SummonerProfileActivity.class);
             intent.putExtra("summonerName", summonerTextField.getText().toString());
+
             searchSummonerActivity.startActivity(intent);
 
         }
