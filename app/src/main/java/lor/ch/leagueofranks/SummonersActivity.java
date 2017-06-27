@@ -1,6 +1,7 @@
 package lor.ch.leagueofranks;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,11 +15,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import android.view.View;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import lor.ch.leagueofranks.model.LorSummoner;
 import lor.ch.leagueofranks.task.LoadingSummonerListTask;
@@ -60,7 +64,15 @@ public class SummonersActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
         LoadingSummonerListTask loadingSummonerListTask = new LoadingSummonerListTask(this);
+
         ArrayList<Long> summonerIds = new ArrayList<Long>();
+        SharedPreferences favoritSummoners = getSharedPreferences("FavoritSummoners", 0);
+        Map<String, ?> allEntries = favoritSummoners.getAll();
+        for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+            summonerIds.add(new Long(""+entry.getValue()));
+            Log.e(LOG_TAG, ""+entry.getValue());
+        }
+
         summonerIds.add(new Long(67540676));
         loadingSummonerListTask.execute(summonerIds);
 

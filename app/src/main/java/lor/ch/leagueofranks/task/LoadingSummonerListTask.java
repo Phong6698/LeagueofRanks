@@ -35,7 +35,7 @@ public class LoadingSummonerListTask extends AsyncTask<ArrayList<Long>, Void, Ar
 
         if(isNetworkConnectionAvailable()) {
             try {
-                RiotApi api = new RiotApi("");
+                RiotApi api = new RiotApi("58453580-a12b-497a-bdde-d1255bd0fda3");
 
                 api.setRegion(Region.EUW);
 
