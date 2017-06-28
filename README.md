@@ -8,5 +8,6 @@ With Riot API
 * Solo/Duo ListView
 * Flex ListView
 * Sort for ListViews
+* ImageLoader 
 
 
