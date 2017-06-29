@@ -1,6 +1,7 @@
 package lor.ch.leagueofranks.task;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -29,11 +30,13 @@ public class LoadingSummonerTask extends AsyncTask<String, Void, LorSummoner> {
     private ConnectivityManager connectivityManager;
     protected SummonerProfileActivity summonerProfileActivity;
     protected SummonersActivity summonersActivity;
+    protected Dialog mDialog;
     protected int countFavSum;
 
 
-    public LoadingSummonerTask(SummonerProfileActivity summonerProfileActivity) {
+    public LoadingSummonerTask(SummonerProfileActivity summonerProfileActivity, Dialog mDialog) {
         this.summonerProfileActivity = summonerProfileActivity;
+        this.mDialog = mDialog;
     }
 
     public LoadingSummonerTask(SummonersActivity summonersActivity, int countFavSum) {
@@ -99,6 +102,7 @@ public class LoadingSummonerTask extends AsyncTask<String, Void, LorSummoner> {
         if (lorSummoner == null) {
             Log.e(LOG_TAG, "Summoner not Found");
             if(summonerProfileActivity != null){
+                mDialog.dismiss();
                 Intent intent = new Intent(summonerProfileActivity, SearchSummonerActivity.class);
                 Toast toast = Toast.makeText(summonerProfileActivity, "Summoner not Found", Toast.LENGTH_SHORT);
                 toast.show();

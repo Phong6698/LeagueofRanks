@@ -8,10 +8,21 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="lor.ch.leagueofranks.SummonersActivity">
 
+    <TextView
+        android:id="@+id/normalNoFavText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="149dp"
+        android:text="You have not added a Summoner yet"
+        android:visibility="invisible" />
+
     <ListView
         android:id="@+id/normalListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_centerVertical="true" />
+
 </RelativeLayout>

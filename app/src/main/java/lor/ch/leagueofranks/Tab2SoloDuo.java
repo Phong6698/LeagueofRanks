@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -29,9 +30,16 @@ public class Tab2SoloDuo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tab2soloduo, container, false);
-        AdapterNormalList adapterNormalList = new AdapterNormalList(summonersActivity, R.id.normal_list, lorSummoners);
-        ListView soloduoListView = (ListView) rootView.findViewById(R.id.soloduoListView);
-        soloduoListView.setAdapter(adapterNormalList);
+
+        TextView noFavText = (TextView) rootView.findViewById(R.id.soloduoNoFavText);
+        if(lorSummoners.isEmpty()){
+            noFavText.setVisibility(View.VISIBLE);
+        }else {
+            noFavText.setVisibility(View.INVISIBLE);
+            AdapterNormalList adapterNormalList = new AdapterNormalList(summonersActivity, R.id.normal_list, lorSummoners);
+            ListView soloduoListView = (ListView) rootView.findViewById(R.id.soloduoListView);
+            soloduoListView.setAdapter(adapterNormalList);
+        }
         return rootView;
     }
 }

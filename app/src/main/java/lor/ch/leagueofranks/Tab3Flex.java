@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -29,9 +30,17 @@ public class Tab3Flex extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tab3flex, container, false);
-        AdapterNormalList adapterNormalList = new AdapterNormalList(summonersActivity, R.id.normal_list, lorSummoners);
-        ListView flexListView = (ListView) rootView.findViewById(R.id.flexListView);
-        flexListView.setAdapter(adapterNormalList);
+
+        TextView noFavText = (TextView) rootView.findViewById(R.id.flexNoFavText);
+        if(lorSummoners.isEmpty()){
+            noFavText.setVisibility(View.VISIBLE);
+        }else {
+            noFavText.setVisibility(View.INVISIBLE);
+            AdapterNormalList adapterNormalList = new AdapterNormalList(summonersActivity, R.id.normal_list, lorSummoners);
+            ListView flexListView = (ListView) rootView.findViewById(R.id.flexListView);
+            flexListView.setAdapter(adapterNormalList);
+
+        }
         return rootView;
     }
 }

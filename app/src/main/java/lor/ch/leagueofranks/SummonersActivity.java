@@ -59,9 +59,6 @@ public class SummonersActivity extends AppCompatActivity {
         lorSummoners = new ArrayList<>();
         loadingLists();
 
-
-
-
     }
 
     private void setupTabbedActivity(){
@@ -86,18 +83,21 @@ public class SummonersActivity extends AppCompatActivity {
 
     }
 
-    private void setupViewPager(ViewPager viewPager){
-
-    }
 
     private void loadingLists(){
         mDialog = ProgressDialog.show(this, "Please wait", "Loading Summoners...");
         SharedPreferences favoritSummoners = getSharedPreferences("FavoritSummoners", 0);
         Map<String, ?> allEntries = favoritSummoners.getAll();
         countFavSummoner = allEntries.size();
-        for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
-            LoadingSummonerTask loadingSummonerTask = new LoadingSummonerTask(this, countFavSummoner);
-            loadingSummonerTask.execute(""+entry.getValue());
+
+        if(allEntries.isEmpty()) {
+            setupTabbedActivity();
+            mDialog.dismiss();
+        }else{
+            for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+                LoadingSummonerTask loadingSummonerTask = new LoadingSummonerTask(this, countFavSummoner);
+                loadingSummonerTask.execute("" + entry.getValue());
+            }
         }
 
         //LoadingSummonerListTask loadingSummonerListTask = new LoadingSummonerListTask(this);

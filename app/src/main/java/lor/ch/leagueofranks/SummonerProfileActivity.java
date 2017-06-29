@@ -41,17 +41,10 @@ public class SummonerProfileActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        LoadingSummonerTask loadingSummonerTask = new LoadingSummonerTask(this);
-        loadingSummonerTask.execute(intent.getStringExtra("summonerName"));
+        mDialog = ProgressDialog.show(this, "Please wait", "Loading "+intent.getStringExtra("summonerName") +"...");
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        LoadingSummonerTask loadingSummonerTask = new LoadingSummonerTask(this, mDialog);
+        loadingSummonerTask.execute(intent.getStringExtra("summonerName"));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -105,6 +98,7 @@ public class SummonerProfileActivity extends AppCompatActivity {
 
                 }
             }
+            mDialog.dismiss();
         }
 
         setTitle(lorSummoner.getSummoner().getName());

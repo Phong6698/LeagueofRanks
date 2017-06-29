@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -30,9 +31,16 @@ public class Tab1Normal extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tab1normal, container, false);
-        AdapterNormalList adapterNormalList = new AdapterNormalList(summonersActivity, R.id.normal_list, lorSummoners);
-        ListView normalListView = (ListView) rootView.findViewById(R.id.normalListView);
-        normalListView.setAdapter(adapterNormalList);
+
+        TextView noFavText = (TextView) rootView.findViewById(R.id.normalNoFavText);
+        if(lorSummoners.isEmpty()){
+            noFavText.setVisibility(View.VISIBLE);
+        }else{
+            noFavText.setVisibility(View.INVISIBLE);
+            AdapterNormalList adapterNormalList = new AdapterNormalList(summonersActivity, R.id.normal_list, lorSummoners);
+            ListView normalListView = (ListView) rootView.findViewById(R.id.normalListView);
+            normalListView.setAdapter(adapterNormalList);
+        }
         return rootView;
     }
 
