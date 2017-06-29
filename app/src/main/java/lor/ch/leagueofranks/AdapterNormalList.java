@@ -44,7 +44,7 @@ public class AdapterNormalList extends ArrayAdapter<LorSummoner> {
         normalSummonerName.setText(lorSummoner.getSummoner().getName());
 
         for (PlayerStatsSummary playerStatsSummary : lorSummoner.getPlayerStatsSummaryList().getPlayerStatSummaries()){
-
+            Log.e(LOG_TAG,  lorSummoner.getSummoner().getName()+": "+ playerStatsSummary.getPlayerStatSummaryType());
             if(playerStatsSummary.getPlayerStatSummaryType().equals("Unranked")){
 
                 normalWins.setText(playerStatsSummary.getWins()+" Wins");

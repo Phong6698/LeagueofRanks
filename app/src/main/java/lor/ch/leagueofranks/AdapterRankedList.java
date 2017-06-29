@@ -52,45 +52,97 @@ public class AdapterRankedList extends ArrayAdapter<LorSummoner> {
         //rankedElo.setText();
         LeagueEntry leagueEntry = null;
 
-        for(League league : lorSummoner.getLeagues()) {
-            Log.e(LOG_TAG,  lorSummoner.getSummoner().getName()+": "+ league.getQueue());
-            if (isFlex) {
-                if (league.getQueue().equals("RANKED_FLEX_SR")) {
-                    for (LeagueEntry leagueEntryItem : league.getEntries()) {
-                        if (leagueEntryItem.getPlayerOrTeamName().equals(lorSummoner.getSummoner().getName())) {
-                            leagueEntry  = leagueEntryItem;
-                            break;
+        //If Leagues is not emtpy
+        if(lorSummoner.getLeagues() != null) {
+            for (League league : lorSummoner.getLeagues()) {
+                Log.e(LOG_TAG, lorSummoner.getSummoner().getName() + ": " + league.getQueue());
+                if (isFlex) {
+                    if (league.getQueue().equals("RANKED_FLEX_SR")) {
+                        for (LeagueEntry leagueEntryItem : league.getEntries()) {
+                            if (leagueEntryItem.getPlayerOrTeamName().equals(lorSummoner.getSummoner().getName())) {
+                                leagueEntry = leagueEntryItem;
+                                break;
+                            }
+
+                        }
+                    }
+                } else {
+                    if (league.getQueue().equals("RANKED_SOLO_5x5")) {
+                        for (LeagueEntry leagueEntryItem : league.getEntries()) {
+                            if (leagueEntryItem.getPlayerOrTeamName().equals(lorSummoner.getSummoner().getName())) {
+                                leagueEntry = leagueEntryItem;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (leagueEntry != null) {
+                    rankedElo.setText(league.getTier() + " " + leagueEntry.getDivision() + " " + leagueEntry.getLeaguePoints() + "LP");
+
+                    double wins = leagueEntry.getWins();
+                    double losses = leagueEntry.getLosses();
+                    double winRate = (wins / (wins + losses)) * 100;
+
+                    rankedWinRate.setText(Math.round(winRate) + "% Win Rate");
+                    rankedWins.setText(leagueEntry.getWins() + " Wins");
+                    rankedGames.setText((leagueEntry.getWins() + leagueEntry.getLosses() + " Games"));
+                } else {
+                    rankedElo.setText("Unranked");
+                    for (PlayerStatsSummary playerStatsSummary : lorSummoner.getPlayerStatsSummaryList().getPlayerStatSummaries()) {
+                        if (isFlex) {
+                            if (playerStatsSummary.getPlayerStatSummaryType().equals("RankedFlexSR")) {
+
+                                double wins = playerStatsSummary.getWins();
+                                double losses = playerStatsSummary.getLosses();
+                                double winRate = (wins / (wins + losses)) * 100;
+
+                                rankedWinRate.setText(Math.round(winRate) + "% Win Rate");
+                                rankedWins.setText(playerStatsSummary.getWins() + " Wins");
+                                rankedGames.setText((playerStatsSummary.getWins() + playerStatsSummary.getLosses() + " Games"));
+
+                                break;
+                            }
+
+                        } else {
+                            if (playerStatsSummary.getPlayerStatSummaryType().equals("RankedSolo5x5")) {
+
+                                double wins = playerStatsSummary.getWins();
+                                double losses = playerStatsSummary.getLosses();
+                                double winRate = (wins / (wins + losses)) * 100;
+
+                                rankedWinRate.setText(Math.round(winRate) + "% Win Rate");
+                                rankedWins.setText(playerStatsSummary.getWins() + " Wins");
+                                rankedGames.setText((playerStatsSummary.getWins() + playerStatsSummary.getLosses() + " Games"));
+
+                                break;
+                            }
+
                         }
 
                     }
                 }
-            } else {
-                if (league.getQueue().equals("RANKED_SOLO_5x5")) {
-                    for (LeagueEntry leagueEntryItem : league.getEntries()) {
-                        if (leagueEntryItem.getPlayerOrTeamName().equals(lorSummoner.getSummoner().getName())) {
-                            leagueEntry  = leagueEntryItem;
-                            break;
-                        }
-                    }
-                }
+
             }
+        }else{ //If Leagues is emtpy
+            rankedElo.setText("Unranked");
 
-            if(leagueEntry != null){
-                rankedElo.setText(league.getTier() + " " + leagueEntry.getDivision() + " " + leagueEntry.getLeaguePoints() +"LP");
+            for (PlayerStatsSummary playerStatsSummary : lorSummoner.getPlayerStatsSummaryList().getPlayerStatSummaries()) {
+                if(isFlex){
+                    if (playerStatsSummary.getPlayerStatSummaryType().equals("RankedFlexSR")) {
 
-                double wins = leagueEntry.getWins();
-                double losses = leagueEntry.getLosses();
-                double winRate = (wins / (wins + losses)) * 100;
+                        double wins = playerStatsSummary.getWins();
+                        double losses = playerStatsSummary.getLosses();
+                        double winRate = (wins / (wins + losses)) * 100;
 
-                rankedWinRate.setText(Math.round(winRate) + "% Win Rate");
-                rankedWins.setText(leagueEntry.getWins() + " Wins");
-                rankedGames.setText((leagueEntry.getWins() + leagueEntry.getLosses() + " Games"));
-            }else{
-                rankedElo.setText("Unranked");
+                        rankedWinRate.setText(Math.round(winRate) + "% Win Rate");
+                        rankedWins.setText(playerStatsSummary.getWins() + " Wins");
+                        rankedGames.setText((playerStatsSummary.getWins() + playerStatsSummary.getLosses() + " Games"));
 
-                for (PlayerStatsSummary playerStatsSummary : lorSummoner.getPlayerStatsSummaryList().getPlayerStatSummaries()){
-
-                    if(playerStatsSummary.getPlayerStatSummaryType().equals("RankedFlexSR")){
+                        break;
+                    }
+                }else{
+                    if (playerStatsSummary.getPlayerStatSummaryType().equals("RankedSolo5x5")) {
 
                         double wins = playerStatsSummary.getWins();
                         double losses = playerStatsSummary.getLosses();
@@ -103,9 +155,8 @@ public class AdapterRankedList extends ArrayAdapter<LorSummoner> {
                         break;
                     }
                 }
+
             }
-
-
         }
 
 

@@ -75,30 +75,79 @@ public class SummonerProfileActivity extends AppCompatActivity {
         double flexwin = 0;
         double flexloses = 0;
 
+        LeagueEntry leagueEntrySolo = null;
+        League leagueSolo = null;
+        LeagueEntry leagueEntryFlex = null;
+        League leagueFlex = null;
 
-        for(League league : lorSummoner.getLeagues()){
-            Log.e(LOG_TAG, league.getQueue() +": ");
-            if(league.getQueue().equals("RANKED_SOLO_5x5")) {
-                for (LeagueEntry leagueEntry : league.getEntries()) {
-                    if (leagueEntry.getPlayerOrTeamName().equals(lorSummoner.getSummoner().getName())) {
-                        Log.e(LOG_TAG, leagueEntry.getPlayerOrTeamName() + ": " + league.getTier() + leagueEntry.getDivision() + " " + leagueEntry.getLeaguePoints());
-                        solorank = league.getTier() + " " + leagueEntry.getDivision() + " " + leagueEntry.getLeaguePoints();
-                        solowin = leagueEntry.getWins();
-                        sololoses = leagueEntry.getLosses();
-                    }
-                }
-            }else if(league.getQueue().equals("RANKED_FLEX_SR")){
-                for (LeagueEntry leagueEntry : league.getEntries()) {
-                    if (leagueEntry.getPlayerOrTeamName().equals(lorSummoner.getSummoner().getName())) {
-                        Log.e(LOG_TAG, leagueEntry.getPlayerOrTeamName() + ": " + league.getTier() + leagueEntry.getDivision() + " " + leagueEntry.getLeaguePoints());
-                        flexrank = league.getTier() + " " + leagueEntry.getDivision() + " " + leagueEntry.getLeaguePoints();
-                        flexwin = leagueEntry.getWins();
-                        flexloses = leagueEntry.getLosses();
-                    }
 
+        if(lorSummoner.getLeagues() != null) {
+
+            for (League league : lorSummoner.getLeagues()) {
+                Log.e(LOG_TAG, league.getQueue() + ": ");
+                if (league.getQueue().equals("RANKED_SOLO_5x5")) {
+                    for (LeagueEntry leagueEntry : league.getEntries()) {
+                        if (leagueEntry.getPlayerOrTeamName().equals(lorSummoner.getSummoner().getName())) {
+                            leagueEntrySolo = leagueEntry;
+                            leagueSolo = league;
+                        }
+                    }
+                } else if (league.getQueue().equals("RANKED_FLEX_SR")) {
+                    for (LeagueEntry leagueEntry : league.getEntries()) {
+                        if (leagueEntry.getPlayerOrTeamName().equals(lorSummoner.getSummoner().getName())) {
+                            leagueEntryFlex = leagueEntry;
+                            leagueFlex = league;
+                        }
+
+                    }
                 }
             }
-            mDialog.dismiss();
+
+            //Solo/Duo
+            if(leagueEntrySolo != null){
+                Log.e(LOG_TAG, leagueEntrySolo.getPlayerOrTeamName() + ": " + leagueSolo.getTier() + leagueEntrySolo.getDivision() + " " + leagueEntrySolo.getLeaguePoints());
+                solorank = leagueSolo.getTier() + " " + leagueEntrySolo.getDivision() + " " + leagueEntrySolo.getLeaguePoints();
+                solowin = leagueEntrySolo.getWins();
+                sololoses = leagueEntrySolo.getLosses();
+            }else{
+                for (PlayerStatsSummary playerStatsSummary : lorSummoner.getPlayerStatsSummaryList().getPlayerStatSummaries()) {
+
+                    if (playerStatsSummary.getPlayerStatSummaryType().equals("RankedSolo5x5")) {
+                        solorank = "Unranked";
+                        solowin = playerStatsSummary.getWins();
+                        sololoses = playerStatsSummary.getLosses();
+                    }
+                }
+            }
+
+
+            //Flex
+            if(leagueEntryFlex != null) {
+                Log.e(LOG_TAG, leagueEntryFlex.getPlayerOrTeamName() + ": " + leagueFlex.getTier() + leagueEntryFlex.getDivision() + " " + leagueEntryFlex.getLeaguePoints());
+                flexrank = leagueFlex.getTier() + " " + leagueEntryFlex.getDivision() + " " + leagueEntryFlex.getLeaguePoints();
+                flexwin = leagueEntryFlex.getWins();
+                flexloses = leagueEntryFlex.getLosses();
+            }else{
+                for (PlayerStatsSummary playerStatsSummary : lorSummoner.getPlayerStatsSummaryList().getPlayerStatSummaries()) {
+                    if (playerStatsSummary.getPlayerStatSummaryType().equals("RankedFlexSR")) {
+                        flexrank = "Unranked";
+                        flexwin = playerStatsSummary.getWins();
+                        flexloses = playerStatsSummary.getLosses();
+                    }
+                }
+            }
+        }else{
+            for (PlayerStatsSummary playerStatsSummary : lorSummoner.getPlayerStatsSummaryList().getPlayerStatSummaries()) {
+                if (playerStatsSummary.getPlayerStatSummaryType().equals("RankedFlexSR")) {
+                    flexrank = "Unranked";
+                    flexwin = playerStatsSummary.getWins();
+                    flexloses = playerStatsSummary.getLosses();
+                } else if (playerStatsSummary.getPlayerStatSummaryType().equals("RankedSolo5x5")) {
+                    solorank = "Unranked";
+                    solowin = playerStatsSummary.getWins();
+                    sololoses = playerStatsSummary.getLosses();
+                }
+            }
         }
 
         setTitle(lorSummoner.getSummoner().getName());
@@ -143,6 +192,7 @@ public class SummonerProfileActivity extends AppCompatActivity {
         }else if(!favorit){
             favoriting.setIcon(R.drawable.ic_favorite_border_white_48px);
         }
+        mDialog.dismiss();
     }
 
 
