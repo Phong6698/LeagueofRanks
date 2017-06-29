@@ -3,6 +3,7 @@ package lor.ch.leagueofranks;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import lor.ch.leagueofranks.model.LorSummoner;
 
 public class AdapterNormalList extends ArrayAdapter<LorSummoner> {
 
+    private static final String LOG_TAG = AdapterNormalList.class.getCanonicalName();
     private Context context;
 
     public AdapterNormalList(@NonNull Context context, int resource, ArrayList<LorSummoner> lorSummoners) {
@@ -33,19 +35,23 @@ public class AdapterNormalList extends ArrayAdapter<LorSummoner> {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.adapter_normal_list, parent, false);
 
-        TextView summonerName = (TextView) rowView.findViewById(R.id.normalSummonerName);
-        TextView summonerWins = (TextView) rowView.findViewById(R.id.normalWins);
-        ImageView summonerIcon = (ImageView) rowView.findViewById((R.id.normalSummonerIcon));
+        TextView normalSummonerName = (TextView) rowView.findViewById(R.id.normalSummonerName);
+        TextView normalWins = (TextView) rowView.findViewById(R.id.normalWins);
+        ImageView normalSummonerIcon = (ImageView) rowView.findViewById((R.id.normalSummonerIcon));
 
-        int wins = 0;
-        summonerName.setText(this.getItem(position).getSummoner().getName());
-        for (PlayerStatsSummary playerStatsSummary : this.getItem(position).getPlayerStatsSummaryList().getPlayerStatSummaries()){
+        LorSummoner lorSummoner = this.getItem(position);
+
+        normalSummonerName.setText(lorSummoner.getSummoner().getName());
+
+        for (PlayerStatsSummary playerStatsSummary : lorSummoner.getPlayerStatsSummaryList().getPlayerStatSummaries()){
+
             if(playerStatsSummary.getPlayerStatSummaryType().equals("Unranked")){
-              wins = playerStatsSummary.getWins();
+
+                normalWins.setText(playerStatsSummary.getWins()+" Wins");
                 break;
             }
         }
-        summonerWins.setText(""+wins);
+
 
         //TODO summoner icon
 

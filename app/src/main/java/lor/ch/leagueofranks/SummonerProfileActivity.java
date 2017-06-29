@@ -41,7 +41,7 @@ public class SummonerProfileActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        mDialog = ProgressDialog.show(this, "Please wait", "Loading "+intent.getStringExtra("summonerName") +"...");
+        mDialog = ProgressDialog.show(this, "Please wait", "Searching "+intent.getStringExtra("summonerName") +"...");
 
         LoadingSummonerTask loadingSummonerTask = new LoadingSummonerTask(this, mDialog);
         loadingSummonerTask.execute(intent.getStringExtra("summonerName"));

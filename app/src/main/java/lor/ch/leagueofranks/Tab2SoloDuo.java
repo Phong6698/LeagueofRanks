@@ -36,9 +36,9 @@ public class Tab2SoloDuo extends Fragment {
             noFavText.setVisibility(View.VISIBLE);
         }else {
             noFavText.setVisibility(View.INVISIBLE);
-            AdapterNormalList adapterNormalList = new AdapterNormalList(summonersActivity, R.id.normal_list, lorSummoners);
+            AdapterRankedList adapterRankedList = new AdapterRankedList(summonersActivity, R.id.ranked_list, lorSummoners, false);
             ListView soloduoListView = (ListView) rootView.findViewById(R.id.soloduoListView);
-            soloduoListView.setAdapter(adapterNormalList);
+            soloduoListView.setAdapter(adapterRankedList);
         }
         return rootView;
     }

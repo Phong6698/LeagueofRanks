@@ -16,6 +16,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="149dp"
         android:text="You have not added a Summoner yet"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:visibility="invisible" />
 
     <ListView

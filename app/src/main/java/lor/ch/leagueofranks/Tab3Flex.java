@@ -36,10 +36,9 @@ public class Tab3Flex extends Fragment {
             noFavText.setVisibility(View.VISIBLE);
         }else {
             noFavText.setVisibility(View.INVISIBLE);
-            AdapterNormalList adapterNormalList = new AdapterNormalList(summonersActivity, R.id.normal_list, lorSummoners);
+            AdapterRankedList adapterRankedList = new AdapterRankedList(summonersActivity, R.id.ranked_list, lorSummoners, true);
             ListView flexListView = (ListView) rootView.findViewById(R.id.flexListView);
-            flexListView.setAdapter(adapterNormalList);
-
+            flexListView.setAdapter(adapterRankedList);
         }
         return rootView;
     }

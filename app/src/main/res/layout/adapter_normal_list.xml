@@ -11,11 +11,10 @@
 
     <ImageView
         android:id="@+id/normalSummonerIcon"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="13dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         app:srcCompat="@mipmap/ic_launcher"
-        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -25,14 +24,16 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="14dp"
         android:layout_toEndOf="@+id/normalSummonerIcon"
-        android:text="Summoner Name" />
+        android:text="Summoner Name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
     <TextView
         android:id="@+id/normalWins"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Wins"
+        android:textAllCaps="false"
         android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="21dp" />
+        android:layout_alignParentEnd="true" />
+
 </RelativeLayout>
