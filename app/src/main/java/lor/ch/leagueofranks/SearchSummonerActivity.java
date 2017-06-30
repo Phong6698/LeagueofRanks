@@ -27,7 +27,6 @@ public class SearchSummonerActivity extends AppCompatActivity {
 
         Button searchbutton = (Button) findViewById(R.id.searchSummonerButton);
 
-
         Spinner regionSpinner = (Spinner) findViewById(R.id.searchSummonerSpinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.region, android.R.layout.simple_spinner_item);
@@ -38,9 +37,6 @@ public class SearchSummonerActivity extends AppCompatActivity {
         searchbutton.setOnClickListener(new SearchSummonerListener(this, (EditText)findViewById(R.id.searchSummonerName), (Spinner)findViewById(R.id.searchSummonerSpinner)));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,8 +56,6 @@ public class SearchSummonerActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
-
 }

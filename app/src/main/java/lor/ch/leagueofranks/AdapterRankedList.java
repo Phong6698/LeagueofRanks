@@ -92,7 +92,6 @@ public class AdapterRankedList extends ArrayAdapter<LorSummoner> {
                     for (PlayerStatsSummary playerStatsSummary : lorSummoner.getPlayerStatsSummaryList().getPlayerStatSummaries()) {
                         if (isFlex) {
                             if (playerStatsSummary.getPlayerStatSummaryType().equals("RankedFlexSR")) {
-
                                 double wins = playerStatsSummary.getWins();
                                 double losses = playerStatsSummary.getLosses();
                                 double winRate = (wins / (wins + losses)) * 100;
@@ -106,7 +105,6 @@ public class AdapterRankedList extends ArrayAdapter<LorSummoner> {
 
                         } else {
                             if (playerStatsSummary.getPlayerStatSummaryType().equals("RankedSolo5x5")) {
-
                                 double wins = playerStatsSummary.getWins();
                                 double losses = playerStatsSummary.getLosses();
                                 double winRate = (wins / (wins + losses)) * 100;
@@ -117,12 +115,9 @@ public class AdapterRankedList extends ArrayAdapter<LorSummoner> {
 
                                 break;
                             }
-
                         }
-
                     }
                 }
-
             }
         }else{ //If Leagues is emtpy
             rankedElo.setText("Unranked");
@@ -130,7 +125,6 @@ public class AdapterRankedList extends ArrayAdapter<LorSummoner> {
             for (PlayerStatsSummary playerStatsSummary : lorSummoner.getPlayerStatsSummaryList().getPlayerStatSummaries()) {
                 if(isFlex){
                     if (playerStatsSummary.getPlayerStatSummaryType().equals("RankedFlexSR")) {
-
                         double wins = playerStatsSummary.getWins();
                         double losses = playerStatsSummary.getLosses();
                         double winRate = (wins / (wins + losses)) * 100;
@@ -143,7 +137,6 @@ public class AdapterRankedList extends ArrayAdapter<LorSummoner> {
                     }
                 }else{
                     if (playerStatsSummary.getPlayerStatSummaryType().equals("RankedSolo5x5")) {
-
                         double wins = playerStatsSummary.getWins();
                         double losses = playerStatsSummary.getLosses();
                         double winRate = (wins / (wins + losses)) * 100;
@@ -155,10 +148,8 @@ public class AdapterRankedList extends ArrayAdapter<LorSummoner> {
                         break;
                     }
                 }
-
             }
         }
-
 
         //TODO summoner icon
         //TODO ranked icon

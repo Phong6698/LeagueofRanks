@@ -56,10 +56,7 @@ public class SummonerSorter {
         ranks.put("CHALLENGER", 27);
     }
 
-    public SummonerSorter() {
-
-    }
-
+    public SummonerSorter() {    }
 
     public LeagueEntry getLeagueEntry(LorSummoner lorSummoner, League league){
         LeagueEntry leagueEntry = null;
@@ -173,7 +170,6 @@ public class SummonerSorter {
         return rankedWinsLosses;
     }
 
-
     public ArrayList<LorSummoner> sortRankedRank(ArrayList<LorSummoner> lorSummoners){
         for(LorSummoner lorSummoner : lorSummoners){
             lorSummoner.setRankPoints(getRankPoints(lorSummoner).get(0));
@@ -189,7 +185,6 @@ public class SummonerSorter {
         Collections.reverse(lorSummoners);
         return lorSummoners;
     }
-
 
     public ArrayList<LorSummoner> sortRankedWins(ArrayList<LorSummoner> lorSummoners){
         for(LorSummoner lorSummoner : lorSummoners){
@@ -250,6 +245,4 @@ public class SummonerSorter {
         Collections.reverse(lorSummoners);
         return lorSummoners;
     }
-
-
 }

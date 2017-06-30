@@ -37,8 +37,6 @@ public class SummonerProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_summoner_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
         Intent intent = getIntent();
 
         mDialog = ProgressDialog.show(this, "Please wait", "Loading "+intent.getStringExtra("summonerName") +"...");
@@ -68,6 +66,7 @@ public class SummonerProfileActivity extends AppCompatActivity {
                 break;
             }
         }
+
         String solorank = " ";
         double solowin = 0;
         double sololoses = 0;
@@ -80,9 +79,7 @@ public class SummonerProfileActivity extends AppCompatActivity {
         LeagueEntry leagueEntryFlex = null;
         League leagueFlex = null;
 
-
         if(lorSummoner.getLeagues() != null) {
-
             for (League league : lorSummoner.getLeagues()) {
                 Log.e(LOG_TAG, league.getQueue() + ": ");
                 if (league.getQueue().equals("RANKED_SOLO_5x5")) {
@@ -119,7 +116,6 @@ public class SummonerProfileActivity extends AppCompatActivity {
                     }
                 }
             }
-
 
             //Flex
             if(leagueEntryFlex != null) {
@@ -161,7 +157,6 @@ public class SummonerProfileActivity extends AppCompatActivity {
         TextView flexwins = (TextView)findViewById(R.id.flexwins);
         TextView flexrate = (TextView)findViewById(R.id.flexrate);
 
-        //in your OnCreate() method
         //NORMAL
         normalwins.setText("Wins: " + normalwin);
         level.setText("Level: " + lorSummoner.getSummoner().getSummonerLevel());
@@ -181,8 +176,6 @@ public class SummonerProfileActivity extends AppCompatActivity {
         double flexvalue = Math.round(100.0 * (flexrates * 100)) / 100.0;
         flexwins.setText("Wins: " + flexwin);
         flexrate.setText("Level: " + flexvalue + "%");
-
-
 
         MenuItem favoriting = (MenuItem)menu.findItem(R.id.action_favorit_summoner);
         boolean favorit = checkFavorit();

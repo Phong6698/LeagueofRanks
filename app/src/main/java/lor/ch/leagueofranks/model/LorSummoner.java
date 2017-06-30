@@ -19,7 +19,7 @@ public class LorSummoner {
     /**
      *  For sorting
      */
-    private int rankPoints = 0;//there are 28 Division whereUnranked is 0 and Challanger is 27 for example Silver 3 is 8
+    private int rankPoints = 0;//there are 28 Division where Unranked is 0 and Challanger is 27 for example Silver 3 is 8
     private int leaguePoints = 0;
     private int wins = 0;
     private int winRate = 0;

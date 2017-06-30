@@ -59,9 +59,7 @@ public class Tab3Flex extends Fragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parentView) {}
         });
         setListView();
         return rootView;

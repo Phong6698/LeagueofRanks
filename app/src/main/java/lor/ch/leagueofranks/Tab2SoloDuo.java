@@ -65,10 +65,7 @@ public class Tab2SoloDuo extends Fragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-
-            }
-
+            public void onNothingSelected(AdapterView<?> parentView) {}
         });
         setListView();
         return rootView;

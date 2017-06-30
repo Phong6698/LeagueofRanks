@@ -99,13 +99,7 @@ public class SummonersActivity extends AppCompatActivity {
                 loadingSummonerTask.execute("" + entry.getValue());
             }
         }
-
-        //LoadingSummonerListTask loadingSummonerListTask = new LoadingSummonerListTask(this);
-        //loadingSummonerListTask.execute(summonerIds);
-
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -130,7 +124,6 @@ public class SummonersActivity extends AppCompatActivity {
             Intent intent = new Intent(this, SearchSummonerActivity.class);
             this.startActivity(intent);
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -142,5 +135,4 @@ public class SummonersActivity extends AppCompatActivity {
             mDialog.dismiss();
         }
     }
-
 }

@@ -18,6 +18,7 @@ import net.rithms.riot.dto.League.LeagueEntry;
 import net.rithms.riot.dto.Stats.PlayerStatsSummary;
 import net.rithms.riot.dto.Summoner.Summoner;
 
+import lor.ch.leagueofranks.R;
 import lor.ch.leagueofranks.SearchSummonerActivity;
 import lor.ch.leagueofranks.SummonerProfileActivity;
 import lor.ch.leagueofranks.SummonersActivity;
@@ -33,7 +34,6 @@ public class LoadingSummonerTask extends AsyncTask<String, Void, LorSummoner> {
     protected Dialog mDialog;
     protected int countFavSum;
 
-
     public LoadingSummonerTask(SummonerProfileActivity summonerProfileActivity, Dialog mDialog) {
         this.summonerProfileActivity = summonerProfileActivity;
         this.mDialog = mDialog;
@@ -46,13 +46,13 @@ public class LoadingSummonerTask extends AsyncTask<String, Void, LorSummoner> {
 
     @Override
     protected LorSummoner doInBackground(String... params) {
-
         int timePause = 1;
         if(countFavSum > 2){
             timePause = 3;
         }
+
         LorSummoner lorSummoner = new LorSummoner();
-        RiotApi api = new RiotApi("58453580-a12b-497a-bdde-d1255bd0fda3");
+        RiotApi api = new RiotApi(summonersActivity.getResources().getString(R.string.api_key));
         api.setRegion(Region.EUW);
 
         if(isNetworkConnectionAvailable()) {
@@ -71,31 +71,33 @@ public class LoadingSummonerTask extends AsyncTask<String, Void, LorSummoner> {
 
             try {
                 long id = lorSummoner.getSummoner().getId();
+
+                //Pause for API Request Limit
                 try {
                     Thread.sleep(timePause * 1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
+                //Summary
                 lorSummoner.setPlayerStatsSummaryList(api.getPlayerStatsSummary(id));
+
+                //Pause for API Request Limit
                 try {
                     Thread.sleep(timePause * 1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
+                //League
                 lorSummoner.setLeagues(api.getLeagueBySummoner(id));
-
-
 
             } catch (RiotApiException e){
                e.printStackTrace();
             }
         }
-
-
         return lorSummoner;
     }
-
-
 
     @Override
     protected void onPostExecute(LorSummoner lorSummoner) {
@@ -111,19 +113,13 @@ public class LoadingSummonerTask extends AsyncTask<String, Void, LorSummoner> {
                 Toast toast = Toast.makeText(summonersActivity, "Summoner not Found", Toast.LENGTH_SHORT);
                 toast.show();
             }
-
-
-
         }else{
             if(summonerProfileActivity != null){
                 summonerProfileActivity.onData(lorSummoner);
             }else if(summonersActivity != null){
                 summonersActivity.onData(lorSummoner);
             }
-
         }
-
-
     }
 
     private boolean isNetworkConnectionAvailable() {
@@ -135,10 +131,8 @@ public class LoadingSummonerTask extends AsyncTask<String, Void, LorSummoner> {
         }
 
         NetworkInfo networkInfo = connectivityService.getActiveNetworkInfo();
-
         return null != networkInfo && networkInfo.isConnected();
     }
-
 
     public ConnectivityManager getConnectivityManager() {
         return connectivityManager;

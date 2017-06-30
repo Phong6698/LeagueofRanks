@@ -27,7 +27,6 @@ public class SectionsPageAdapter extends FragmentStatePagerAdapter {
     }
 
 
-
     @Override
     public CharSequence getPageTitle(int position){
         return mFragmentTitlelList.get(position);
