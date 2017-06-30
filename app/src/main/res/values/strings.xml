@@ -17,4 +17,10 @@
         <item>TR</item>
         <item>RU</item>
     </string-array>
+    <string-array name="sort_ranks">
+        <item>Elo</item>
+        <item>Wins</item>
+        <item>Win Rate</item>
+        <item>Games</item>
+    </string-array>
 </resources>

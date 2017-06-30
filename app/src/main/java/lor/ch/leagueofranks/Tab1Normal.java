@@ -22,24 +22,32 @@ public class Tab1Normal extends Fragment {
 
     private SummonersActivity summonersActivity;
     private ArrayList<LorSummoner> lorSummoners;
+    private View rootView;
+    private SummonerSorter summonerSorter;
 
 
     public void setLorSummoner(SummonersActivity summonersActivity, ArrayList<LorSummoner> lorSummoners){
         this.lorSummoners = lorSummoners;
         this.summonersActivity = summonersActivity;
+        this.summonerSorter = new SummonerSorter();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.tab1normal, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        this.rootView = inflater.inflate(R.layout.tab1normal, container, false);
 
+        setListView();
+
+        return rootView;
+    }
+
+    public void setListView(){
         TextView noFavText = (TextView) rootView.findViewById(R.id.normalNoFavText);
         if(lorSummoners.isEmpty()){
             noFavText.setVisibility(View.VISIBLE);
         }else{
             noFavText.setVisibility(View.INVISIBLE);
-            AdapterNormalList adapterNormalList = new AdapterNormalList(summonersActivity, R.id.normal_list, lorSummoners);
+            AdapterNormalList adapterNormalList = new AdapterNormalList(summonersActivity, R.id.normal_list, summonerSorter.sortNormalWins(lorSummoners));
             ListView normalListView = (ListView) rootView.findViewById(R.id.normalListView);
             normalListView.setAdapter(adapterNormalList);
             normalListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -51,7 +59,5 @@ public class Tab1Normal extends Fragment {
                 }
             });
         }
-        return rootView;
     }
-
 }

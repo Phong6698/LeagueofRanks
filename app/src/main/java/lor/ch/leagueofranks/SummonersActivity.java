@@ -41,11 +41,11 @@ public class SummonersActivity extends AppCompatActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-
-
     /**
      * The {@link ViewPager} that will host the section contents.
      */
+
+
     private ViewPager mViewPager;
 
     @Override
@@ -135,6 +135,7 @@ public class SummonersActivity extends AppCompatActivity {
     }
 
     public void onData(LorSummoner lorSummoner) {
+
         this.lorSummoners.add(lorSummoner);
         if (this.lorSummoners.size() == countFavSummoner) {
             setupTabbedActivity();

@@ -19,10 +19,32 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:visibility="invisible" />
 
+    <Spinner
+        android:id="@+id/soloduoSortSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="116dp"
+        android:layout_marginStart="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/textView2" />
+
     <ListView
         android:id="@+id/soloduoListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/soloduoSortSpinner"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/soloduoSortSpinner"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:labelFor="@+id/soloduoSortSpinner"
+        android:text="Sort by:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="16dp" />
 </RelativeLayout>
