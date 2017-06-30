@@ -44,7 +44,8 @@ public class AdapterRankedList extends ArrayAdapter<LorSummoner> {
         TextView rankedWinRate = (TextView) rowView.findViewById(R.id.rankedWinRate);
         TextView rankedWins = (TextView) rowView.findViewById(R.id.rankedWins);
         TextView rankedGames = (TextView) rowView.findViewById(R.id.rankedGames);
-        ImageView rankedEloIcon = (ImageView) rowView.findViewById((R.id.rankedEloIcon));
+        ImageView rankedEloIcon = (ImageView) rowView.findViewById(R.id.rankedEloIcon);
+        ImageView rankedSummonerIcon = (ImageView) rowView.findViewById(R.id.rankedSummonerIcon);
 
         LorSummoner lorSummoner = this.getItem(position);
 
@@ -87,8 +88,13 @@ public class AdapterRankedList extends ArrayAdapter<LorSummoner> {
                     rankedWinRate.setText(Math.round(winRate) + "% Win Rate");
                     rankedWins.setText(leagueEntry.getWins() + " Wins");
                     rankedGames.setText((leagueEntry.getWins() + leagueEntry.getLosses() + " Games"));
+
+                    String tier = league.getTier() + "_" +leagueEntry.getDivision();
+                    int id = context.getResources().getIdentifier(tier.toLowerCase(), "drawable", context.getPackageName());
+                    rankedEloIcon.setImageResource(id);
                 } else {
                     rankedElo.setText("Unranked");
+                    rankedEloIcon.setImageResource(R.drawable.unranked);
                     for (PlayerStatsSummary playerStatsSummary : lorSummoner.getPlayerStatsSummaryList().getPlayerStatSummaries()) {
                         if (isFlex) {
                             if (playerStatsSummary.getPlayerStatSummaryType().equals("RankedFlexSR")) {
@@ -121,7 +127,7 @@ public class AdapterRankedList extends ArrayAdapter<LorSummoner> {
             }
         }else{ //If Leagues is emtpy
             rankedElo.setText("Unranked");
-
+            rankedEloIcon.setImageResource(R.drawable.unranked);
             for (PlayerStatsSummary playerStatsSummary : lorSummoner.getPlayerStatsSummaryList().getPlayerStatSummaries()) {
                 if(isFlex){
                     if (playerStatsSummary.getPlayerStatSummaryType().equals("RankedFlexSR")) {
@@ -151,8 +157,7 @@ public class AdapterRankedList extends ArrayAdapter<LorSummoner> {
             }
         }
 
-        //TODO summoner icon
-        //TODO ranked icon
+        lorSummoner.setSummonerIcon(rankedSummonerIcon);
 
         return rowView;
     }

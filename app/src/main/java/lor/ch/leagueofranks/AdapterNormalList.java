@@ -52,8 +52,7 @@ public class AdapterNormalList extends ArrayAdapter<LorSummoner> {
             }
         }
 
-
-        //TODO summoner icon
+        lorSummoner.setSummonerIcon(normalSummonerIcon);
 
         return rowView;
     }

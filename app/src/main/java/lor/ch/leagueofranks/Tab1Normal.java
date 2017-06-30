@@ -43,11 +43,12 @@ public class Tab1Normal extends Fragment {
 
     public void setListView(){
         TextView noFavText = (TextView) rootView.findViewById(R.id.normalNoFavText);
+        this.lorSummoners = summonerSorter.sortNormalWins(lorSummoners);
         if(lorSummoners.isEmpty()){
             noFavText.setVisibility(View.VISIBLE);
         }else{
             noFavText.setVisibility(View.INVISIBLE);
-            AdapterNormalList adapterNormalList = new AdapterNormalList(summonersActivity, R.id.normal_list, summonerSorter.sortNormalWins(lorSummoners));
+            AdapterNormalList adapterNormalList = new AdapterNormalList(summonersActivity, R.id.normal_list, lorSummoners);
             ListView normalListView = (ListView) rootView.findViewById(R.id.normalListView);
             normalListView.setAdapter(adapterNormalList);
             normalListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){

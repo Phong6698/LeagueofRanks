@@ -52,11 +52,21 @@ public class LoadingSummonerTask extends AsyncTask<String, Void, LorSummoner> {
         }
 
         LorSummoner lorSummoner = new LorSummoner();
-        RiotApi api = new RiotApi(summonersActivity.getResources().getString(R.string.api_key));
+        String apiKey = "";
+        if(summonerProfileActivity!=null){
+            apiKey = summonerProfileActivity.getResources().getString(R.string.api_key);
+        }else if(summonersActivity!=null){
+            apiKey = summonersActivity.getResources().getString(R.string.api_key);
+        }
+
+        RiotApi api = new RiotApi(apiKey);
         api.setRegion(Region.EUW);
+
 
         if(isNetworkConnectionAvailable()) {
             try {
+                Log.e(LOG_TAG, "VERSION: "+api.getDataVersions().get(0));
+                lorSummoner.setDataVersion(api.getDataVersions().get(0));
                 if(summonerProfileActivity!=null){
                     Summoner summoner = api.getSummonerByName(params[0]);
                     lorSummoner.setSummoner(summoner);
@@ -80,24 +90,29 @@ public class LoadingSummonerTask extends AsyncTask<String, Void, LorSummoner> {
                     e.printStackTrace();
                 }
 
-                //Summary
-                lorSummoner.setPlayerStatsSummaryList(api.getPlayerStatsSummary(id));
-
-                //Pause for API Request Limit
-                try {
-                    Thread.sleep(timePause * 1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
 
                 //League
+                boolean hasLeague = true;
                 try{
 
                     lorSummoner.setLeagues(api.getLeagueBySummoner(id));
                 }catch(RiotApiException e){
+                    hasLeague = false;
                     Log.e(LOG_TAG, "NO LEAGUES");
+
                 }
 
+                if(hasLeague) {
+                    //Pause for API Request Limit
+                    try {
+                        Thread.sleep(timePause * 1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                //Summary
+                lorSummoner.setPlayerStatsSummaryList(api.getPlayerStatsSummary(id));
 
             } catch (RiotApiException e){
                e.printStackTrace();

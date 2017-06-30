@@ -69,9 +69,9 @@ public class SummonersActivity extends AppCompatActivity {
         Tab2SoloDuo tab2SoloDuo = new Tab2SoloDuo();
         Tab3Flex tab3Flex = new Tab3Flex();
 
-        tab1Normal.setLorSummoner(this, lorSummoners);
-        tab2SoloDuo.setLorSummoner(this, lorSummoners);
-        tab3Flex.setLorSummoner(this, lorSummoners);
+        tab1Normal.setLorSummoner(this, new ArrayList<LorSummoner>(lorSummoners));
+        tab2SoloDuo.setLorSummoner(this, new ArrayList<LorSummoner>(lorSummoners));
+        tab3Flex.setLorSummoner(this, new ArrayList<LorSummoner>(lorSummoners));
 
         adapter.addFragment(tab1Normal, "Normal");
         adapter.addFragment(tab2SoloDuo, "Solo/Duo");

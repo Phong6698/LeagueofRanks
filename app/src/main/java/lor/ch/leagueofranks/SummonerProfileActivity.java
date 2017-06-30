@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +59,22 @@ public class SummonerProfileActivity extends AppCompatActivity {
     public void onData(LorSummoner lorSummoner){
         Log.e(LOG_TAG, "hello");
         this.lorSummoner = lorSummoner;
+
+        setTitle(lorSummoner.getSummoner().getName());
+
+        TextView normalwins = (TextView)findViewById(R.id.normalwins);
+        TextView level = (TextView)findViewById(R.id.level);
+
+        TextView solowins = (TextView)findViewById(R.id.solowins);
+        TextView solorate = (TextView)findViewById(R.id.solorate);
+
+        TextView flexwins = (TextView)findViewById(R.id.flexwins);
+        TextView flexrate = (TextView)findViewById(R.id.flexrate);
+
+        ImageView summonerIcon = (ImageView)findViewById(R.id.summonerIcon);
+        ImageView soloduoIcon = (ImageView)findViewById(R.id.soloduoIcon);
+        ImageView flexIcon = (ImageView)findViewById(R.id.flexIcon);
+
         int normalwin = 0;
         for(PlayerStatsSummary playerStatsSummary : lorSummoner.getPlayerStatsSummaryList().getPlayerStatSummaries()){
             Log.e(LOG_TAG, playerStatsSummary.getPlayerStatSummaryType() + " : " + playerStatsSummary.getWins());
@@ -67,10 +84,10 @@ public class SummonerProfileActivity extends AppCompatActivity {
             }
         }
 
-        String solorank = " ";
+        String solorank = "";
         double solowin = 0;
         double sololoses = 0;
-        String flexrank = " ";
+        String flexrank = "";
         double flexwin = 0;
         double flexloses = 0;
 
@@ -106,9 +123,12 @@ public class SummonerProfileActivity extends AppCompatActivity {
                 solorank = leagueSolo.getTier() + " " + leagueEntrySolo.getDivision() + " " + leagueEntrySolo.getLeaguePoints();
                 solowin = leagueEntrySolo.getWins();
                 sololoses = leagueEntrySolo.getLosses();
+                String tier = leagueSolo.getTier() + "_" +leagueEntrySolo.getDivision();
+                int id = this.getResources().getIdentifier(tier.toLowerCase(), "drawable", this.getPackageName());
+                soloduoIcon.setImageResource(id);
             }else{
+                soloduoIcon.setImageResource(R.drawable.unranked);
                 for (PlayerStatsSummary playerStatsSummary : lorSummoner.getPlayerStatsSummaryList().getPlayerStatSummaries()) {
-
                     if (playerStatsSummary.getPlayerStatSummaryType().equals("RankedSolo5x5")) {
                         solorank = "Unranked";
                         solowin = playerStatsSummary.getWins();
@@ -123,7 +143,11 @@ public class SummonerProfileActivity extends AppCompatActivity {
                 flexrank = leagueFlex.getTier() + " " + leagueEntryFlex.getDivision() + " " + leagueEntryFlex.getLeaguePoints();
                 flexwin = leagueEntryFlex.getWins();
                 flexloses = leagueEntryFlex.getLosses();
+                String tier = leagueFlex.getTier() + "_" +leagueEntryFlex.getDivision();
+                int id = this.getResources().getIdentifier(tier.toLowerCase(), "drawable", this.getPackageName());
+                flexIcon.setImageResource(id);
             }else{
+                flexIcon.setImageResource(R.drawable.unranked);
                 for (PlayerStatsSummary playerStatsSummary : lorSummoner.getPlayerStatsSummaryList().getPlayerStatSummaries()) {
                     if (playerStatsSummary.getPlayerStatSummaryType().equals("RankedFlexSR")) {
                         flexrank = "Unranked";
@@ -133,6 +157,8 @@ public class SummonerProfileActivity extends AppCompatActivity {
                 }
             }
         }else{
+            soloduoIcon.setImageResource(R.drawable.unranked);
+            flexIcon.setImageResource(R.drawable.unranked);
             for (PlayerStatsSummary playerStatsSummary : lorSummoner.getPlayerStatsSummaryList().getPlayerStatSummaries()) {
                 if (playerStatsSummary.getPlayerStatSummaryType().equals("RankedFlexSR")) {
                     flexrank = "Unranked";
@@ -145,17 +171,6 @@ public class SummonerProfileActivity extends AppCompatActivity {
                 }
             }
         }
-
-        setTitle(lorSummoner.getSummoner().getName());
-
-        TextView normalwins = (TextView)findViewById(R.id.normalwins);
-        TextView level = (TextView)findViewById(R.id.level);
-
-        TextView solowins = (TextView)findViewById(R.id.solowins);
-        TextView solorate = (TextView)findViewById(R.id.solorate);
-
-        TextView flexwins = (TextView)findViewById(R.id.flexwins);
-        TextView flexrate = (TextView)findViewById(R.id.flexrate);
 
         //NORMAL
         normalwins.setText("Wins: " + normalwin);
@@ -177,6 +192,8 @@ public class SummonerProfileActivity extends AppCompatActivity {
         flexwins.setText("Wins: " + flexwin);
         flexrate.setText("Level: " + flexvalue + "%");
 
+        lorSummoner.setSummonerIcon(summonerIcon);
+
         MenuItem favoriting = (MenuItem)menu.findItem(R.id.action_favorit_summoner);
         boolean favorit = checkFavorit();
 
@@ -185,6 +202,7 @@ public class SummonerProfileActivity extends AppCompatActivity {
         }else if(!favorit){
             favoriting.setIcon(R.drawable.ic_favorite_border_white_48px);
         }
+
         mDialog.dismiss();
     }
 
@@ -199,12 +217,12 @@ public class SummonerProfileActivity extends AppCompatActivity {
             if(!favorit){
                 addFavorit();
                 item.setIcon(R.drawable.ic_favorite_white_48px);
-                Toast toast = Toast.makeText(getApplicationContext(), "Add to Favorites", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), "Added to favorites", Toast.LENGTH_SHORT);
                 toast.show();
             } else if(favorit){
                 removeFavorit();
                 item.setIcon(R.drawable.ic_favorite_border_white_48px);
-                Toast toast = Toast.makeText(getApplicationContext(), "Removed from Favorites", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), "Removed from favorites", Toast.LENGTH_SHORT);
                 toast.show();
             }
         } else if (item.getItemId() == R.id.action_settings) {
