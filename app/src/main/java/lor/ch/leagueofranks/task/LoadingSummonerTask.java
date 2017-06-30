@@ -64,6 +64,7 @@ public class LoadingSummonerTask extends AsyncTask<String, Void, LorSummoner> {
                     Summoner summoner = api.getSummonerById(params[0]);
                     lorSummoner.setSummoner(summoner);
                 }
+                Log.e(LOG_TAG, lorSummoner.getSummoner().getName());
 
             }catch(RiotApiException e){
                 return null;
@@ -90,7 +91,13 @@ public class LoadingSummonerTask extends AsyncTask<String, Void, LorSummoner> {
                 }
 
                 //League
-                lorSummoner.setLeagues(api.getLeagueBySummoner(id));
+                try{
+
+                    lorSummoner.setLeagues(api.getLeagueBySummoner(id));
+                }catch(RiotApiException e){
+                    Log.e(LOG_TAG, "NO LEAGUES");
+                }
+
 
             } catch (RiotApiException e){
                e.printStackTrace();

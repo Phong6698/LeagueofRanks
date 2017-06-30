@@ -94,11 +94,11 @@ public class SummonerSorter {
         return wins;
     }
 
-    public ArrayList<Integer> getRankPoints(LorSummoner lorSummoner){
+    private ArrayList<Integer> getRankPoints(LorSummoner lorSummoner){
         ArrayList<Integer> points = new ArrayList<>();
         int rankPoints = 0;
         int leaguePoints = 0;
-        LeagueEntry leagueEntry = null;
+        LeagueEntry leagueEntry;
         //If Leagues is not emtpy
         if(lorSummoner.getLeagues() != null) {
             for (League league : lorSummoner.getLeagues()) {
@@ -116,11 +116,11 @@ public class SummonerSorter {
         return points;
     }
 
-    public ArrayList<Integer> getRankedWinsLosses(LorSummoner lorSummoner){
+    private ArrayList<Integer> getRankedWinsLosses(LorSummoner lorSummoner){
         ArrayList<Integer> rankedWinsLosses = new ArrayList<>();
         int wins = 0;
         int losses = 0;
-        LeagueEntry leagueEntry = null;
+        LeagueEntry leagueEntry;
         //If Leagues is not emtpy
         if(lorSummoner.getLeagues() != null) {
             for (League league : lorSummoner.getLeagues()) {
