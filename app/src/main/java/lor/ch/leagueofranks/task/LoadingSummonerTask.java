@@ -39,7 +39,7 @@ public class LoadingSummonerTask extends AsyncTask<String, Void, LorSummoner> {
     protected LorSummoner doInBackground(String... params) {
 
         LorSummoner lorSummoner = new LorSummoner();
-        RiotApi api = new RiotApi("");
+        RiotApi api = new RiotApi("RGAPI-10164e1d-0ecf-46ae-bfac-f61149503b89");
         api.setRegion(Region.EUW);
 
         if(isNetworkConnectionAvailable()) {

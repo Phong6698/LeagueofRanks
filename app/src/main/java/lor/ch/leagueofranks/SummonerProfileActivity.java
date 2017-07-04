@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -93,6 +95,7 @@ public class SummonerProfileActivity extends AppCompatActivity {
                         solowin = leagueEntry.getWins();
                         sololoses = leagueEntry.getLosses();
                     }
+
                 }
             }else if(league.getQueue().equals("RANKED_FLEX_SR")){
                 for (LeagueEntry leagueEntry : league.getEntries()) {
@@ -117,6 +120,13 @@ public class SummonerProfileActivity extends AppCompatActivity {
 
         TextView flexwins = (TextView)findViewById(R.id.flexwins);
         TextView flexrate = (TextView)findViewById(R.id.flexrate);
+
+        ImageView normalPic = (ImageView)findViewById(R.id.normalPic);
+        ImageView soloPic = (ImageView)findViewById(R.id.soloPic);
+        ImageView flexPic = (ImageView)findViewById(R.id.flexPic);
+
+        setImage(normalPic, lorSummoner.getSummoner().getProfileIconId());
+
 
         //in your OnCreate() method
         //NORMAL
@@ -211,5 +221,12 @@ public class SummonerProfileActivity extends AppCompatActivity {
                 editor.commit();
             }
         }
+    }
+
+
+    public void setImage(ImageView imageButton, int imagenr){
+        String url = "http://ddragon.leagueoflegends.com/cdn/7.13.1/img/profileicon/" + Integer.toString(imagenr) + ".png";
+        new ImageDownloader(imageButton).execute(url);
+
     }
 }
