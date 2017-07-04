@@ -8,10 +8,42 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="lor.ch.leagueofranks.SummonersActivity">
 
+    <TextView
+        android:id="@+id/soloduoNoFavText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="149dp"
+        android:text="You have not added a Summoner yet"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:visibility="invisible" />
+
+    <Spinner
+        android:id="@+id/soloduoSortSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="116dp"
+        android:layout_marginStart="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/textView2" />
+
     <ListView
         android:id="@+id/soloduoListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/soloduoSortSpinner"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@+id/soloduoSortSpinner"
+        android:text="Sort by:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="16dp"
+        android:layout_above="@+id/soloduoListView"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

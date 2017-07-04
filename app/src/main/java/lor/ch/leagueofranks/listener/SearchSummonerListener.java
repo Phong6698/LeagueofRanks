@@ -24,7 +24,6 @@ public class SearchSummonerListener  implements View.OnClickListener {
     private EditText summonerTextField;
     private Spinner regionSpinner;
 
-
     public SearchSummonerListener(SearchSummonerActivity searchSummonerActivity, EditText summonerTextField, Spinner regionSpinner) {
         this.searchSummonerActivity = searchSummonerActivity;
         this.summonerTextField = summonerTextField;
@@ -34,12 +33,10 @@ public class SearchSummonerListener  implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.searchSummonerButton) {
-
             Intent intent = new Intent(searchSummonerActivity, SummonerProfileActivity.class);
             intent.putExtra("summonerName", summonerTextField.getText().toString());
 
             searchSummonerActivity.startActivity(intent);
-
         }
     }
 }

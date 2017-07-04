@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="lor.ch.leagueofranks.AdapterRankedList"
+    android:id="@+id/ranked_list"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+   >
+
+    <ImageView
+        android:id="@+id/rankedSummonerIcon"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:srcCompat="@mipmap/ic_launcher"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/rankedSummonerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:text="Summoner Name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/rankedSummonerIcon"
+        android:layout_marginStart="10dp" />
+
+    <TextView
+        android:id="@+id/rankedWins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wins"
+        android:layout_alignBaseline="@+id/rankedSummonerName"
+        android:layout_alignBottom="@+id/rankedSummonerName"
+        android:layout_toStartOf="@+id/rankedEloIcon" />
+
+    <TextView
+        android:id="@+id/rankedElo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/rankedSummonerIcon"
+        android:layout_alignStart="@+id/rankedSummonerName"
+        android:paddingBottom="5dp"
+        android:text="Ranked Elo" />
+
+    <TextView
+        android:id="@+id/rankedWinRate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Win Rate"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/rankedEloIcon" />
+
+    <TextView
+        android:id="@+id/rankedGames"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Games"
+        android:layout_alignBaseline="@+id/rankedElo"
+        android:layout_alignBottom="@+id/rankedElo"
+        android:layout_alignEnd="@+id/rankedWinRate" />
+
+    <ImageView
+        android:id="@+id/rankedEloIcon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        app:srcCompat="@mipmap/ic_launcher" />
+</RelativeLayout>

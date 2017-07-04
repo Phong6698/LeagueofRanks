@@ -8,9 +8,43 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="lor.ch.leagueofranks.SummonersActivity">
 
+    <TextView
+        android:id="@+id/flexNoFavText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="149dp"
+        android:text="You have not added a Summoner yet"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:visibility="invisible" />
+
     <ListView
+        android:id="@+id/flexListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="23dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@+id/soloduoSortSpinner"
+        android:text="Sort by:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="16dp"
+        android:layout_alignBottom="@+id/flexSortSpinner"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:id="@+id/flexSortSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="116dp"
+        android:layout_marginStart="19dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/textView" />
+
 </RelativeLayout>

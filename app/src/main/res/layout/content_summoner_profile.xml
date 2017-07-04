@@ -9,8 +9,8 @@
     tools:showIn="@layout/activity_summoner_profile">
 
     <RelativeLayout
-        android:layout_width="368dp"
-        android:layout_height="495dp"
+        android:layout_width="378dp"
+        android:layout_height="577dp"
         tools:layout_editor_absoluteX="11dp"
         tools:layout_editor_absoluteY="7dp">
 
@@ -18,11 +18,11 @@
             android:id="@+id/flex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="22dp"
             android:text="Flex Queue"
             android:textSize="20dp"
-            android:layout_below="@+id/solorate"
-            android:layout_alignStart="@+id/soloPic" />
+            android:layout_below="@+id/soloduoIcon"
+            android:layout_alignStart="@+id/soloduoIcon" />
 
         <TextView
             android:id="@+id/normal"
@@ -39,65 +39,59 @@
             android:id="@+id/solo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/soloPic"
-            android:layout_below="@+id/normalPic"
+            android:layout_alignStart="@+id/soloduoIcon"
+            android:layout_below="@+id/summonerIcon"
             android:layout_marginTop="41dp"
             android:text="Solo/Due Queue"
             android:textSize="20dp" />
 
         <ImageView
-            android:id="@+id/normalPic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/normal"
+            android:id="@+id/summonerIcon"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_alignStart="@+id/normal"
             android:layout_below="@+id/normal"
             android:layout_marginTop="17dp"
+            android:adjustViewBounds="false"
             app:srcCompat="@mipmap/ic_launcher" />
 
         <ImageView
-            android:id="@+id/soloPic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="29dp"
+            android:id="@+id/soloduoIcon"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="14dp"
             app:srcCompat="@mipmap/ic_launcher"
             android:layout_below="@+id/solo"
-            android:layout_alignStart="@+id/normalPic"
-            android:layout_alignEnd="@+id/normalPic" />
+            android:layout_alignStart="@+id/summonerIcon" />
 
         <ImageView
-            android:id="@+id/flexPic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="17dp"
+            android:id="@+id/flexIcon"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="14dp"
             app:srcCompat="@mipmap/ic_launcher"
             android:layout_below="@+id/flex"
-            android:layout_alignStart="@+id/flex"
-            android:layout_alignEnd="@+id/soloPic" />
+            android:layout_alignStart="@+id/flex" />
 
         <TextView
             android:id="@+id/normalwins"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/normalPic"
             android:layout_alignParentEnd="true"
-            android:layout_alignTop="@+id/normalPic"
-            android:layout_marginBottom="28dp"
+            android:layout_alignTop="@+id/summonerIcon"
             android:layout_marginEnd="44dp"
             android:layout_marginStart="31dp"
-            android:layout_toEndOf="@+id/normalPic"
+            android:layout_toEndOf="@+id/summonerIcon"
             android:text="Wins:" />
 
         <TextView
             android:id="@+id/level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/solo"
-            android:layout_alignEnd="@+id/normalwins"
+            android:text="Level: "
             android:layout_alignTop="@+id/normalwins"
-            android:layout_marginTop="23dp"
-            android:layout_toEndOf="@+id/flex"
-            android:text="Level: " />
+            android:layout_alignStart="@+id/normalwins"
+            android:layout_marginTop="31dp" />
 
         <TextView
             android:id="@+id/solowins"
@@ -105,38 +99,33 @@
             android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/normalwins"
             android:layout_alignStart="@+id/normalwins"
-            android:layout_alignTop="@+id/soloPic"
-            android:text="Wins:" />
+            android:text="Wins:"
+            android:layout_alignTop="@+id/soloduoIcon" />
 
         <TextView
             android:id="@+id/flexwins"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/solorate"
-            android:layout_alignTop="@+id/flexPic"
-            android:layout_toEndOf="@+id/flex"
-            android:text="Wins:" />
+            android:text="Wins:"
+            android:layout_alignTop="@+id/flexIcon"
+            android:layout_alignStart="@+id/flexrate" />
 
         <TextView
             android:id="@+id/solorate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/soloPic"
-            android:layout_alignEnd="@+id/solowins"
-            android:layout_alignStart="@+id/solowins"
+            android:text="Silver 5LP"
             android:layout_below="@+id/solowins"
-            android:layout_marginTop="11dp"
-            android:text="Silver 5LP" />
+            android:layout_alignStart="@+id/solowins"
+            android:layout_marginTop="11dp" />
 
         <TextView
             android:id="@+id/flexrate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/flexPic"
-            android:layout_alignEnd="@+id/flexwins"
-            android:layout_alignStart="@+id/flexwins"
+            android:layout_marginTop="14dp"
+            android:text="Silver 5LP"
             android:layout_below="@+id/flexwins"
-            android:layout_marginTop="13dp"
-            android:text="Silver 5LP" />
+            android:layout_alignStart="@+id/solorate" />
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
