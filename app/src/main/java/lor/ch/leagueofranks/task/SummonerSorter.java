@@ -1,6 +1,4 @@
-package lor.ch.leagueofranks;
-
-import android.util.Log;
+package lor.ch.leagueofranks.task;
 
 import net.rithms.riot.dto.League.League;
 import net.rithms.riot.dto.League.LeagueEntry;

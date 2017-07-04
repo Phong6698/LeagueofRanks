@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import lor.ch.leagueofranks.model.LorSummoner;
+import lor.ch.leagueofranks.task.SummonerSorter;
 
 /**
  * Created by phong on 30.05.2017.
