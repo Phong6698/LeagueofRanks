@@ -52,7 +52,7 @@ public class LoadingSummonerTask extends AsyncTask<String, Void, LorSummoner> {
         }
 
         LorSummoner lorSummoner = new LorSummoner();
-        String apiKey = "";
+        String apiKey = "RGAPI-10164e1d-0ecf-46ae-bfac-f61149503b89";
         if(summonerProfileActivity!=null){
             apiKey = summonerProfileActivity.getResources().getString(R.string.api_key);
         }else if(summonersActivity!=null){

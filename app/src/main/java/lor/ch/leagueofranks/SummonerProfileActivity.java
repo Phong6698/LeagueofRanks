@@ -4,15 +4,11 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -68,9 +64,11 @@ public class SummonerProfileActivity extends AppCompatActivity {
 
         TextView solowins = (TextView)findViewById(R.id.solowins);
         TextView solorate = (TextView)findViewById(R.id.solorate);
+        TextView soloelo = (TextView)findViewById(R.id.soloElo);
 
         TextView flexwins = (TextView)findViewById(R.id.flexwins);
         TextView flexrate = (TextView)findViewById(R.id.flexrate);
+        TextView flexelo = (TextView)findViewById(R.id.flexElo);
 
         ImageView summonerIcon = (ImageView)findViewById(R.id.summonerIcon);
         ImageView soloduoIcon = (ImageView)findViewById(R.id.soloduoIcon);
@@ -86,10 +84,10 @@ public class SummonerProfileActivity extends AppCompatActivity {
         }
 
         String solorank = "";
-        double solowin = 0;
+        int solowin = 0;
         double sololoses = 0;
         String flexrank = "";
-        double flexwin = 0;
+        int flexwin = 0;
         double flexloses = 0;
 
         LeagueEntry leagueEntrySolo = null;
@@ -113,26 +111,6 @@ public class SummonerProfileActivity extends AppCompatActivity {
                             leagueEntryFlex = leagueEntry;
                             leagueFlex = league;
                         }
-        for(League league : lorSummoner.getLeagues()){
-            Log.e(LOG_TAG, league.getQueue() +": ");
-            if(league.getQueue().equals("RANKED_SOLO_5x5")) {
-                for (LeagueEntry leagueEntry : league.getEntries()) {
-                    if (leagueEntry.getPlayerOrTeamName().equals(lorSummoner.getSummoner().getName())) {
-                        Log.e(LOG_TAG, leagueEntry.getPlayerOrTeamName() + ": " + league.getTier() + leagueEntry.getDivision() + " " + leagueEntry.getLeaguePoints());
-                        solorank = league.getTier() + " " + leagueEntry.getDivision() + " " + leagueEntry.getLeaguePoints();
-                        solowin = leagueEntry.getWins();
-                        sololoses = leagueEntry.getLosses();
-                    }
-
-                }
-            }else if(league.getQueue().equals("RANKED_FLEX_SR")){
-                for (LeagueEntry leagueEntry : league.getEntries()) {
-                    if (leagueEntry.getPlayerOrTeamName().equals(lorSummoner.getSummoner().getName())) {
-                        Log.e(LOG_TAG, leagueEntry.getPlayerOrTeamName() + ": " + league.getTier() + leagueEntry.getDivision() + " " + leagueEntry.getLeaguePoints());
-                        flexrank = league.getTier() + " " + leagueEntry.getDivision() + " " + leagueEntry.getLeaguePoints();
-                        flexwin = leagueEntry.getWins();
-                        flexloses = leagueEntry.getLosses();
-                    }
 
                     }
                 }
@@ -143,6 +121,7 @@ public class SummonerProfileActivity extends AppCompatActivity {
                 Log.e(LOG_TAG, leagueEntrySolo.getPlayerOrTeamName() + ": " + leagueSolo.getTier() + leagueEntrySolo.getDivision() + " " + leagueEntrySolo.getLeaguePoints());
                 solorank = leagueSolo.getTier() + " " + leagueEntrySolo.getDivision() + " " + leagueEntrySolo.getLeaguePoints();
                 solowin = leagueEntrySolo.getWins();
+                soloelo.setText("Rank: " + leagueSolo.getTier() + " " + leagueEntrySolo.getDivision() + " " + leagueEntrySolo.getLeaguePoints() + "LP");
                 sololoses = leagueEntrySolo.getLosses();
                 String tier = leagueSolo.getTier() + "_" +leagueEntrySolo.getDivision();
                 int id = this.getResources().getIdentifier(tier.toLowerCase(), "drawable", this.getPackageName());
@@ -154,6 +133,7 @@ public class SummonerProfileActivity extends AppCompatActivity {
                         solorank = "Unranked";
                         solowin = playerStatsSummary.getWins();
                         sololoses = playerStatsSummary.getLosses();
+                        soloelo.setText("Rank: " + "Unranked");
                     }
                 }
             }
@@ -163,6 +143,7 @@ public class SummonerProfileActivity extends AppCompatActivity {
                 Log.e(LOG_TAG, leagueEntryFlex.getPlayerOrTeamName() + ": " + leagueFlex.getTier() + leagueEntryFlex.getDivision() + " " + leagueEntryFlex.getLeaguePoints());
                 flexrank = leagueFlex.getTier() + " " + leagueEntryFlex.getDivision() + " " + leagueEntryFlex.getLeaguePoints();
                 flexwin = leagueEntryFlex.getWins();
+                flexelo.setText(leagueFlex.getTier() + " " + leagueEntryFlex.getDivision() + " " + leagueEntryFlex.getLeaguePoints() + "LP");
                 flexloses = leagueEntryFlex.getLosses();
                 String tier = leagueFlex.getTier() + "_" +leagueEntryFlex.getDivision();
                 int id = this.getResources().getIdentifier(tier.toLowerCase(), "drawable", this.getPackageName());
@@ -174,6 +155,7 @@ public class SummonerProfileActivity extends AppCompatActivity {
                         flexrank = "Unranked";
                         flexwin = playerStatsSummary.getWins();
                         flexloses = playerStatsSummary.getLosses();
+                        flexelo.setText("Rank: " + "Unranked");
                     }
                 }
             }
@@ -193,20 +175,6 @@ public class SummonerProfileActivity extends AppCompatActivity {
             }
         }
 
-        TextView solowins = (TextView)findViewById(R.id.solowins);
-        TextView solorate = (TextView)findViewById(R.id.solorate);
-
-        TextView flexwins = (TextView)findViewById(R.id.flexwins);
-        TextView flexrate = (TextView)findViewById(R.id.flexrate);
-
-        ImageView normalPic = (ImageView)findViewById(R.id.normalPic);
-        ImageView soloPic = (ImageView)findViewById(R.id.soloPic);
-        ImageView flexPic = (ImageView)findViewById(R.id.flexPic);
-
-        setImage(normalPic, lorSummoner.getSummoner().getProfileIconId());
-
-
-        //in your OnCreate() method
         //NORMAL
         normalwins.setText("Wins: " + normalwin);
         level.setText("Level: " + lorSummoner.getSummoner().getSummonerLevel());
@@ -301,12 +269,5 @@ public class SummonerProfileActivity extends AppCompatActivity {
                 editor.commit();
             }
         }
-    }
-
-
-    public void setImage(ImageView imageButton, int imagenr){
-        String url = "http://ddragon.leagueoflegends.com/cdn/7.13.1/img/profileicon/" + Integer.toString(imagenr) + ".png";
-        new ImageDownloader(imageButton).execute(url);
-
     }
 }
