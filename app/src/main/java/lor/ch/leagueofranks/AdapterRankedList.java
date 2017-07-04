@@ -39,6 +39,7 @@ public class AdapterRankedList extends ArrayAdapter<LorSummoner> {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.adapter_ranked_list, parent, false);
 
+        //Getting View
         TextView rankedSummonerName = (TextView) rowView.findViewById(R.id.rankedSummonerName);
         TextView rankedElo = (TextView) rowView.findViewById(R.id.rankedElo);
         TextView rankedWinRate = (TextView) rowView.findViewById(R.id.rankedWinRate);

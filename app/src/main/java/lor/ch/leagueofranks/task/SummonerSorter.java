@@ -24,6 +24,8 @@ public class SummonerSorter {
     public SummonerSorter(Boolean isFlex) {
         this.isFlex = isFlex;
         ranks = new HashMap();
+
+        //Ranked Points
         ranks.put("Unranked", 0);
         ranks.put("BRONZE V", 1);
         ranks.put("BRONZE IV", 2);
@@ -56,6 +58,12 @@ public class SummonerSorter {
 
     public SummonerSorter() {    }
 
+    /**
+     * Get League Entry (Ranked stuff)
+     * @param lorSummoner
+     * @param league
+     * @return
+     */
     public LeagueEntry getLeagueEntry(LorSummoner lorSummoner, League league){
         LeagueEntry leagueEntry = null;
         if (this.isFlex) {
@@ -81,6 +89,11 @@ public class SummonerSorter {
         return leagueEntry;
     }
 
+    /**
+     * Normal Wins
+     * @param lorSummoner
+     * @return
+     */
     private int getNormalWins(LorSummoner lorSummoner) {
         int wins = 0;
         for (PlayerStatsSummary playerStatsSummary : lorSummoner.getPlayerStatsSummaryList().getPlayerStatSummaries()){
@@ -92,6 +105,11 @@ public class SummonerSorter {
         return wins;
     }
 
+    /**
+     * Ranked Points
+     * @param lorSummoner
+     * @return ArrayList with RankePoints and LeaguePoints
+     */
     private ArrayList<Integer> getRankPoints(LorSummoner lorSummoner){
         ArrayList<Integer> points = new ArrayList<>();
         int rankPoints = 0;
@@ -114,6 +132,11 @@ public class SummonerSorter {
         return points;
     }
 
+    /**
+     * Get Ranked Wins & Losses
+     * @param lorSummoner
+     * @return ArrayList of Wins and Losses
+     */
     private ArrayList<Integer> getRankedWinsLosses(LorSummoner lorSummoner){
         ArrayList<Integer> rankedWinsLosses = new ArrayList<>();
         int wins = 0;
@@ -168,6 +191,11 @@ public class SummonerSorter {
         return rankedWinsLosses;
     }
 
+    /**
+     * Sort Ranked by Elo
+     * @param lorSummoners
+     * @return
+     */
     public ArrayList<LorSummoner> sortRankedRank(ArrayList<LorSummoner> lorSummoners){
         for(LorSummoner lorSummoner : lorSummoners){
             lorSummoner.setRankPoints(getRankPoints(lorSummoner).get(0));
@@ -184,6 +212,11 @@ public class SummonerSorter {
         return lorSummoners;
     }
 
+    /**
+     * Sort Ranked by Wins
+     * @param lorSummoners
+     * @return
+     */
     public ArrayList<LorSummoner> sortRankedWins(ArrayList<LorSummoner> lorSummoners){
         for(LorSummoner lorSummoner : lorSummoners){
             lorSummoner.setWins(getRankedWinsLosses(lorSummoner).get(0));
@@ -198,6 +231,11 @@ public class SummonerSorter {
         return lorSummoners;
     }
 
+    /**
+     * Sort Ranked by Win Rate
+     * @param lorSummoners
+     * @return
+     */
     public ArrayList<LorSummoner> sortRankedWinRate(ArrayList<LorSummoner> lorSummoners){
         for(LorSummoner lorSummoner : lorSummoners){
 
@@ -216,6 +254,11 @@ public class SummonerSorter {
         return lorSummoners;
     }
 
+    /**
+     * Sort Ranked by Games
+     * @param lorSummoners
+     * @return
+     */
     public ArrayList<LorSummoner> sortRankedGames(ArrayList<LorSummoner> lorSummoners){
         for(LorSummoner lorSummoner : lorSummoners){
             lorSummoner.setGames(getRankedWinsLosses(lorSummoner).get(0)+ getRankedWinsLosses(lorSummoner).get(1));
@@ -230,6 +273,11 @@ public class SummonerSorter {
         return lorSummoners;
     }
 
+    /**
+     * Sort Normal by Wins
+     * @param lorSummoners
+     * @return
+     */
     public ArrayList<LorSummoner> sortNormalWins(ArrayList<LorSummoner> lorSummoners){
         for(LorSummoner lorSummoner : lorSummoners){
             lorSummoner.setWins(getNormalWins(lorSummoner));

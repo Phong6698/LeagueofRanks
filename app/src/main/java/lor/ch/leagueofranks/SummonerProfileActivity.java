@@ -59,6 +59,7 @@ public class SummonerProfileActivity extends AppCompatActivity {
 
         setTitle(lorSummoner.getSummoner().getName());
 
+        //Getting View
         TextView normalwins = (TextView)findViewById(R.id.normalwins);
         TextView level = (TextView)findViewById(R.id.level);
 

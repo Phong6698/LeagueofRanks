@@ -35,6 +35,7 @@ public class AdapterNormalList extends ArrayAdapter<LorSummoner> {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.adapter_normal_list, parent, false);
 
+        //Getting View
         TextView normalSummonerName = (TextView) rowView.findViewById(R.id.normalSummonerName);
         TextView normalWins = (TextView) rowView.findViewById(R.id.normalWins);
         ImageView normalSummonerIcon = (ImageView) rowView.findViewById((R.id.normalSummonerIcon));
